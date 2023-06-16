@@ -40,20 +40,22 @@ const products = [
 ];
 
 // Cart DB placeholder
-let cart = [
-  // { id: 0, qty: 4 },
-  // { id: 1, qty: 8 }
-]
+// let cart = [
+//   // { id: 0, qty: 4 },
+//   // { id: 1, qty: 8 }
+// ]
 
 const routes = Object.freeze({
   SHOP: 'SHOP',
-  CART: 'CART'
+  CART: 'CART',
+  SIGN_IN: 'SIGN_IN'
 });
 
 function App() {
 
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [route, setRoute] = useState(routes.SHOP);
+  const [cart, setCart] = useState([]);
 
   const onSelectProduct = (id) => {
     console.log(id);
@@ -61,33 +63,49 @@ function App() {
   }
 
   const onAddToCart = (id, qty) => {
-    const i = cart.findIndex(item => item.id === id);
+    const newCart = [...cart];
+    const i = newCart.findIndex(item => item.id === id);
     if (i > -1) { // id already in cart
-      cart[i].qty += qty;
+      newCart[i].qty += qty;
     } else { // id not in cart already
-      cart.push(
+      newCart.push(
         { id: id, qty: qty }
       )
     }
+    setCart(newCart);
     window.alert("Added to Cart");
     console.log(id, qty);
     console.log(cart);
   }
 
   const onDeleteFromCart = (id) => {
-    const i = cart.findIndex(item => item.id === id);
+    const newCart = [...cart];
+    const i = newCart.findIndex(item => item.id === id);
     try {
-      cart.splice(i, 1);
+      newCart.splice(i, 1);
     } catch {
       window.alert('Error deleting item');
     }
-
-    // refresh the cart component
-    onRouteChange(routes.CART);
+    setCart(newCart);
   }
 
   const onRouteChange = (route) => {
     setRoute(route);
+  }
+
+  // Logic for routing
+  let display = null;
+  switch (route) {
+    case (routes.SHOP):
+      display = selectedProduct
+        ? <ProductView product={products[selectedProduct]} onSelectProduct={onSelectProduct} onAddToCart={onAddToCart} />
+        : <ProductGrid products={products} onSelectProduct={onSelectProduct} />
+      break;
+    case (routes.CART):
+      display = <Cart cart={cart} products={products} onDeleteFromCart={onDeleteFromCart} />
+      break;
+    default:
+      display = <ProductGrid products={products} onSelectProduct={onSelectProduct} />
   }
 
 
@@ -100,6 +118,7 @@ function App() {
         <div className='mt3'>
           <p className='f4 white tr pr5 mt3 mb2 link underline pointer' onClick={() => onRouteChange(routes.SHOP)}>Shop</p>
           <p className='f4 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.CART)}>Cart</p>
+          <p className='f4 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.SIGN_IN)}>Sign In</p>
         </div>
       </div>
 
@@ -114,28 +133,7 @@ function App() {
         </div>
       </div>
 
-      {
-        route === routes.SHOP
-          ?
-          selectedProduct
-            ?
-            <ProductView
-              product={products[selectedProduct]}
-              onSelectProduct={onSelectProduct}
-              onAddToCart={onAddToCart}
-            />
-            :
-            <ProductGrid
-              products={products}
-              onSelectProduct={onSelectProduct}
-            />
-          :
-          <Cart
-            cart={cart}
-            products={products}
-            onDeleteFromCart={onDeleteFromCart}
-          />
-      }
+      {display}
 
       <footer>
         <div className='tc ba'>
