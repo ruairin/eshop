@@ -6,9 +6,10 @@ import 'tachyons';
 import ProductGrid from '../components/ProductGrid';
 import ProductView from '../components/ProductView';
 import Cart from '../components/Cart';
+import SignIn from '../components/SignIn';
 
 
-// Product DB placeholder
+// ======= DB Placeholders =========
 const products = [
   {
     id: '0',
@@ -39,11 +40,34 @@ const products = [
   }
 ];
 
-// Cart DB placeholder
-// let cart = [
-//   // { id: 0, qty: 4 },
-//   // { id: 1, qty: 8 }
-// ]
+const users = [
+  {
+    id: 0,
+    email: 'ted@gmail.com',
+    firstName: 'Ted',
+    lastName: 'Danson'
+  },
+  {
+    id: 1,
+    email: 'mike@gmail.com',
+    firstName: 'Mike',
+    lastName: 'Mahoney'
+  },
+  {
+    id: 2,
+    email: 'jack@gmail.com',
+    firstName: 'Jack',
+    lastName: 'Jones'
+  },
+]
+
+const login = [
+  { email: 'ted@gmail.com', hash: '1234' },
+  { email: 'mike@gmail.com', hash: 'xxxx' },
+  { email: 'jack@gmail.com', hash: 'YYYY' },
+]
+
+// ======= /DB Placeholders =========
 
 const routes = Object.freeze({
   SHOP: 'SHOP',
@@ -56,6 +80,8 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [route, setRoute] = useState(routes.SHOP);
   const [cart, setCart] = useState([]);
+  const [user, setUser] = useState({});
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const onSelectProduct = (id) => {
     console.log(id);
@@ -93,6 +119,28 @@ function App() {
     setRoute(route);
   }
 
+  const onSignIn = (user) => {
+    loadUser(user);
+    setIsSignedIn(true);
+    setRoute(routes.SHOP);
+  }
+
+  const onSignOut = () => {
+    loadUser({});
+    setIsSignedIn(false);
+    setRoute(routes.SHOP);
+  }
+
+  const loadUser = (user) => {
+    setUser({
+      id: user.id,
+      email: user.email,
+      joined: user.joined,
+      firstName: user.firstName,
+      lastName: user.lastName
+    });
+  }
+
   // Logic for routing
   let display = null;
   switch (route) {
@@ -104,6 +152,9 @@ function App() {
     case (routes.CART):
       display = <Cart cart={cart} products={products} onDeleteFromCart={onDeleteFromCart} />
       break;
+    case (routes.SIGN_IN):
+      display = <SignIn onSignIn={onSignIn} login={login} users={users} />
+      break;
     default:
       display = <ProductGrid products={products} onSelectProduct={onSelectProduct} />
   }
@@ -114,11 +165,19 @@ function App() {
       <div className='banner'>
         <h1 className='f1 white tc'>BeeShop</h1>
 
-        {/* onclick update route to cart component */}
         <div className='mt3'>
-          <p className='f4 white tr pr5 mt3 mb2 link underline pointer' onClick={() => onRouteChange(routes.SHOP)}>Shop</p>
-          <p className='f4 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.CART)}>Cart</p>
-          <p className='f4 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.SIGN_IN)}>Sign In</p>
+          {isSignedIn
+            ?
+            <>
+              <p className='f5 white tr pr5 mt2 mb2'>{`Signed in as ${user.firstName}`}</p>
+              <p className='f5 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onSignOut()}>Sign Out</p>
+            </>
+            :
+            <p className='f5 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.SIGN_IN)}>Sign In</p>
+          }
+          <p className='f5 white tr pr5 mt3 mb2 link underline pointer' onClick={() => onRouteChange(routes.SHOP)}>Shop</p>
+          <p className='f5 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.CART)}>Cart</p>
+
         </div>
       </div>
 
