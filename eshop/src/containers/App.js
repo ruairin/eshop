@@ -7,6 +7,7 @@ import ProductGrid from '../components/ProductGrid';
 import ProductView from '../components/ProductView';
 import Cart from '../components/Cart';
 import SignIn from '../components/SignIn';
+import Register from '../components/Register';
 
 
 // ======= DB Placeholders =========
@@ -72,7 +73,8 @@ const login = [
 const routes = Object.freeze({
   SHOP: 'SHOP',
   CART: 'CART',
-  SIGN_IN: 'SIGN_IN'
+  SIGN_IN: 'SIGN_IN',
+  REGISTER: 'REGISTER',
 });
 
 function App() {
@@ -131,11 +133,17 @@ function App() {
     setRoute(routes.SHOP);
   }
 
+  const onRegister = () => {
+    loadUser({});
+    setIsSignedIn(false);
+    setRoute(routes.SIGN_IN);
+    console.log(users);
+  }
+
   const loadUser = (user) => {
     setUser({
       id: user.id,
       email: user.email,
-      joined: user.joined,
       firstName: user.firstName,
       lastName: user.lastName
     });
@@ -153,7 +161,10 @@ function App() {
       display = <Cart cart={cart} products={products} onDeleteFromCart={onDeleteFromCart} />
       break;
     case (routes.SIGN_IN):
-      display = <SignIn onSignIn={onSignIn} login={login} users={users} />
+      display = <SignIn onSignIn={onSignIn} onRouteChange={onRouteChange} login={login} users={users} />
+      break;
+    case (routes.REGISTER):
+      display = <Register onRegister={onRegister} login={login} users={users} />
       break;
     default:
       display = <ProductGrid products={products} onSelectProduct={onSelectProduct} />

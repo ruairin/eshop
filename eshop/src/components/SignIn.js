@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 
 // TODO: login, users to be removed when DB implemented
-const SignIn = ({ onSignIn, login, users }) => {
+const SignIn = ({ onSignIn, onRouteChange, login, users }) => {
 
   // States for getting values from input fields
   const [email, setEmail] = useState('');
@@ -61,9 +61,9 @@ const SignIn = ({ onSignIn, login, users }) => {
               type="submit"
               value="Sign in" />
           </div>
-          {/* <div className="lh-copy mt3">
-            <p onClick={() => onRouteChange('register')} href="#0" className="f6 link dim black db pointer">Register</p>
-          </div> */}
+          <div className="lh-copy mt3">
+            <p onClick={() => onRouteChange('REGISTER')} href="#0" className="f6 link dim black db pointer">Register</p>
+          </div>
         </div>
       </main>
     </article>
