@@ -11,6 +11,9 @@ import Register from '../components/Register';
 import Home from '../components/Home';
 import About from '../components/About';
 import Contact from '../components/Contact';
+import NavBar from '../components/NavBar';
+import Banner from '../components/Banner';
+import Footer from '../components/Footer';
 
 
 // ======= DB Placeholders =========
@@ -188,42 +191,10 @@ function App() {
 
   return (
     <div>
-      <div className='banner'>
-        <h1 className='f1 white tc'>BeeShop</h1>
-
-        <div className='mt3'>
-          {isSignedIn
-            ?
-            <>
-              <p className='f5 white tr pr5 mt2 mb2'>{`Signed in as ${user.firstName}`}</p>
-              <p className='f5 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onSignOut()}>Sign Out</p>
-            </>
-            :
-            <p className='f5 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.SIGN_IN)}>Sign In</p>
-          }
-          <p className='f5 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.CART)}>Cart</p>
-
-        </div>
-      </div>
-
-      <div className='tc ba'>
-        <div class="bg-black-90 w-100 ph3 pv3 pv4-ns ph4-m ph5-l">
-          <nav class="f6 fw6 ttu tracked">
-            <a className="link dim white dib mr3" href="#" title="Home" onClick={() => onRouteChange(routes.HOME)}>Home</a>
-            <a class="link dim white dib mr3" href="#" title="About" onClick={() => onRouteChange(routes.ABOUT)}>About</a>
-            <a class="link dim white dib mr3" href="#" title="Shop" onClick={() => onRouteChange(routes.SHOP)}>Shop</a>
-            <a class="link dim white dib" href="#" title="Contact" onClick={() => onRouteChange(routes.CONTACT)}>Contact</a>
-          </nav>
-        </div>
-      </div>
-
+      <Banner onRouteChange={onRouteChange} onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} routes={routes} />
+      <NavBar onRouteChange={onRouteChange} routes={routes} />
       {display}
-
-      <footer>
-        <div className='tc ba'>
-          <h1 className='f4 white'>Footer</h1>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
