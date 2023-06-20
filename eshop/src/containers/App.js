@@ -8,6 +8,9 @@ import ProductView from '../components/ProductView';
 import Cart from '../components/Cart';
 import SignIn from '../components/SignIn';
 import Register from '../components/Register';
+import Home from '../components/Home';
+import About from '../components/About';
+import Contact from '../components/Contact';
 
 
 // ======= DB Placeholders =========
@@ -75,6 +78,9 @@ const routes = Object.freeze({
   CART: 'CART',
   SIGN_IN: 'SIGN_IN',
   REGISTER: 'REGISTER',
+  HOME: 'HOME',
+  ABOUT: 'ABOUT',
+  CONTACT: 'CONTACT'
 });
 
 function App() {
@@ -166,8 +172,17 @@ function App() {
     case (routes.REGISTER):
       display = <Register onRegister={onRegister} login={login} users={users} />
       break;
+    case (routes.HOME):
+      display = <Home />
+      break;
+    case (routes.ABOUT):
+      display = <About />
+      break;
+    case (routes.CONTACT):
+      display = <Contact />
+      break;
     default:
-      display = <ProductGrid products={products} onSelectProduct={onSelectProduct} />
+      display = <Home />
   }
 
 
@@ -186,7 +201,6 @@ function App() {
             :
             <p className='f5 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.SIGN_IN)}>Sign In</p>
           }
-          <p className='f5 white tr pr5 mt3 mb2 link underline pointer' onClick={() => onRouteChange(routes.SHOP)}>Shop</p>
           <p className='f5 white tr pr5 mt2 mb2 link underline pointer' onClick={() => onRouteChange(routes.CART)}>Cart</p>
 
         </div>
@@ -195,10 +209,10 @@ function App() {
       <div className='tc ba'>
         <div class="bg-black-90 w-100 ph3 pv3 pv4-ns ph4-m ph5-l">
           <nav class="f6 fw6 ttu tracked">
-            <a class="link dim white dib mr3" href="#" title="Home">Home</a>
-            <a class="link dim white dib mr3" href="#" title="About">About</a>
-            <a class="link dim white dib mr3" href="#" title="Shop">Shop</a>
-            <a class="link dim white dib" href="#" title="Contact">Contact</a>
+            <a className="link dim white dib mr3" href="#" title="Home" onClick={() => onRouteChange(routes.HOME)}>Home</a>
+            <a class="link dim white dib mr3" href="#" title="About" onClick={() => onRouteChange(routes.ABOUT)}>About</a>
+            <a class="link dim white dib mr3" href="#" title="Shop" onClick={() => onRouteChange(routes.SHOP)}>Shop</a>
+            <a class="link dim white dib" href="#" title="Contact" onClick={() => onRouteChange(routes.CONTACT)}>Contact</a>
           </nav>
         </div>
       </div>

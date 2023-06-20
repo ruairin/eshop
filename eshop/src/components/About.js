@@ -1,13 +1,12 @@
 import React from "react";
-import ProductCard from './ProductCard';
-import './ProductGrid.css';
 
-const ProductGrid = ({ products, onSelectProduct }) => {
+
+const About = ( ) => {
   return (
     <>
-    <div className='ml5 mr5'>
-      <h1>Shop</h1>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+      <div className="pa4" style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column' }}>
+        <h2 className='white'>About</h2>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
         when an unknown printer took a galley of type and scrambled it to make a type 
         specimen book. It has survived not only five centuries, but also the leap into 
@@ -15,18 +14,9 @@ const ProductGrid = ({ products, onSelectProduct }) => {
         the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
         and more recently with desktop publishing software like Aldus PageMaker including 
         versions of Lorem Ipsum.</p>
-    </div>
-    <div className='grid-container'>
-      {
-        products.map((product) => {
-          return (
-            <ProductCard product={product} onSelectProduct={onSelectProduct} />
-          );
-        })
-      }
-    </div>
+      </div>
     </>
   );
 }
 
-export default ProductGrid;
+export default About;
