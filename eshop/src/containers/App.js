@@ -17,35 +17,22 @@ import Footer from '../components/Footer';
 
 
 // ======= DB Placeholders =========
-const products = [
-  {
-    id: '0',
-    title: 'Product 1',
-    price: 2.99,
-    description: 'This is product 1',
-    prod_code: 'SKU001',
-    image: '300.jpg',
-    inventory: 100
-  },
-  {
-    id: '1',
-    title: 'Product 2',
-    price: 2.99,
-    description: 'This is product 2',
-    prod_code: 'SKU002',
-    image: '300.jpg',
-    inventory: 100
-  },
-  {
-    id: '2',
-    title: 'Product 3',
-    price: 2.99,
-    description: 'This is product 3',
-    prod_code: 'SKU003',
-    image: '300.jpg',
-    inventory: 100
-  }
-];
+const temp = [...Array(60).keys()];
+const products = temp.map(item => {
+  return (
+    {
+      id: `${item}`,
+      title: `Product ${item + 1}`,
+      price: 2.99,
+      description: `This is product ${item + 1}`,
+      prod_code: `SKU001 ${item + 1}`,
+      image: '300.jpg',
+      inventory: 100
+    }
+  );
+});
+console.log(products);
+
 
 const users = [
   {
