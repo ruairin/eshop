@@ -5,7 +5,10 @@ import Pagination from './Pagination';
 import './ProductGrid.css';
 
 
-const ProductGrid = ({ products, onSelectProduct }) => {
+const ProductGrid = ({ products, categories, categoryId, onSelectProduct }) => {
+
+  const category = categories[categoryId];
+  console.log(category);
 
   // current page for pagination display
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,6 +20,7 @@ const ProductGrid = ({ products, onSelectProduct }) => {
     // Note: e.target.value is a string. 
     // Convert to number before setting as pageSize
     setPageSize(Number(e.target.value));
+    // always reset to the first page
     setCurrentPage(1);
   }
 
@@ -30,6 +34,11 @@ const ProductGrid = ({ products, onSelectProduct }) => {
     return Math.min(getCurrentGridIdxStart() + pageSize, products.length);
   }
 
+  const productsInCategory = useMemo(() => {
+    // TODO: Replace with database query
+    return products.filter((product) => {return product.category_id === categoryId});
+  }, [products, categories, categoryId]);
+
   // return an array of items to display on this page
   // based on the pagination 
   const currentGridItems = useMemo(() => {
@@ -37,14 +46,14 @@ const ProductGrid = ({ products, onSelectProduct }) => {
     const idxStart = getCurrentGridIdxStart();
     const idxEnd = getCurrentGridIdxEnd();
 
-    return products.slice(idxStart, idxEnd);
+    return productsInCategory.slice(idxStart, idxEnd);
 
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize, categoryId]);
 
   return (
     <>
       <div className='ml5 mr5'>
-        <h1>Shop</h1>
+        <h1>{`${category.title}`}</h1>
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
           when an unknown printer took a galley of type and scrambled it to make a type
@@ -81,14 +90,14 @@ const ProductGrid = ({ products, onSelectProduct }) => {
         <div className='pagination-container'>
           <div className='pagination-selector'>
             <Pagination 
-              totalNumberItems={products.length} 
+              totalNumberItems={productsInCategory.length} 
               itemsPerPage={pageSize} 
               currentPage={currentPage} 
               onPageChange={setCurrentPage} 
             />
           </div>
           <div className='pagination-info'>
-            <p>{`Showing ${getCurrentGridIdxStart()+1}-${getCurrentGridIdxEnd()} of ${products.length} items`}</p>
+            <p>{`Showing ${getCurrentGridIdxStart()+1}-${getCurrentGridIdxEnd()} of ${productsInCategory.length} items`}</p>
           </div>  
         </div>
       </div>
