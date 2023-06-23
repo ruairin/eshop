@@ -14,7 +14,7 @@ import Contact from '../components/Contact';
 import NavBar from '../components/NavBar';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
-import ProductCategories from '../components/Shop';
+import Shop from '../components/Shop';
 
 
 // ======= DB Placeholders =========
@@ -178,7 +178,7 @@ function App() {
   let display = null;
   switch (route) {
     case (routes.SHOP_HOME):
-      display = <ProductCategories categories={categories}  onSelectCategory={onSelectCategory} />
+      display = <Shop categories={categories}  onSelectCategory={onSelectCategory} />
       break;
     case (routes.SHOP_GRID):
       display = <ProductGrid products={products} categories={categories} categoryId={selectedCategory} onSelectProduct={onSelectProduct} />
