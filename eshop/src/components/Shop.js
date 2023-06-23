@@ -4,6 +4,7 @@ import ProductGrid from "./ProductGrid";
 import ProductView from "./ProductView";
 
 import './Shop.css';
+import 'tachyons';
 
 const Shop = ({ products, categories, routes, selectedCategory, onSelectCategory, route, onRouteChange, onAddToCart }) => {
 
@@ -15,17 +16,51 @@ const Shop = ({ products, categories, routes, selectedCategory, onSelectCategory
     onRouteChange(routes.SHOP_PRODUCT);
   }
 
+  let rightPaneContent = null;
   let display = null;
   switch (route) {
     case (routes.SHOP_GRID):
-      display = <ProductGrid products={products} categories={categories} categoryId={selectedCategory} onSelectProduct={onSelectProduct} />
+      rightPaneContent = <ProductGrid products={products} categories={categories} categoryId={selectedCategory} onSelectProduct={onSelectProduct} />
       break;
     case (routes.SHOP_PRODUCT):
-      display = <ProductView product={products[selectedProduct]} routes={routes} onRouteChange={onRouteChange} onAddToCart={onAddToCart} />
+      rightPaneContent = <ProductView product={products[selectedProduct]} routes={routes} onRouteChange={onRouteChange} onAddToCart={onAddToCart} />
       break;
     default:
+      // for SHOP_HOME route, there's only one pane
       display = shopHome(categories, onSelectCategory);
       break;
+  }
+
+  if (rightPaneContent) {
+    display =
+      <>
+        <div className='flex-container'>
+          <div className='flex-row'>
+            <div className='nav-pane'>
+
+              <h3>Navigation</h3>
+              <h4 onClick={() => onRouteChange(routes.HOME)}>Home</h4>
+              <h4 onClick={() => onRouteChange(routes.ABOUT)}>About</h4>
+              <h4 onClick={() => onRouteChange(routes.SHOP_HOME)}>Shop</h4>
+              <ul>
+                {
+                  categories.map((category) => {
+                    let className = '';
+                    if (category.id === selectedCategory) {
+                      className = 'white';
+                    }
+                    return (<li className={className} onClick={() => onSelectCategory(category.id)}>{category.title}</li>);
+                  })
+                }
+              </ul>
+              <h4 onClick={() => onRouteChange(routes.CONTACT)}>Contact</h4>
+            </div>
+            <div className='product-pane'>
+              {rightPaneContent}
+            </div>
+          </div>
+        </div>
+      </>
   }
 
   return (
