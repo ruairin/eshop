@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ProductView.css';
 import 'tachyons';
 
-const ProductView = ({ product, onSelectProduct, onAddToCart }) => {
+const ProductView = ({ product, routes, onRouteChange, onAddToCart }) => {
   const { id, title, price, description, image, inventory } = product;
 
   // State for reading <input> for number to add to cart
@@ -11,7 +11,7 @@ const ProductView = ({ product, onSelectProduct, onAddToCart }) => {
   return (
     <>
       <div className='ma4'>
-        <button onClick={() => onSelectProduct(null)}>Back</button>
+        <button onClick={() => onRouteChange(routes.SHOP_GRID)}>Back</button>
         <h1>{title}</h1>
 
         <div className='row'>

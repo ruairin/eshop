@@ -1,11 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import CategoryCard from './CategoryCard';
+import ProductGrid from "./ProductGrid";
+import ProductView from "./ProductView";
 
 import './Shop.css';
 
+const Shop = ({ products, categories, routes, selectedCategory, onSelectCategory, route, onRouteChange, onAddToCart }) => {
 
-const ProductCategories = ({ categories, onSelectCategory }) => {
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const onSelectProduct = (id) => {
+    console.log(id);
+    setSelectedProduct(id);
+    onRouteChange(routes.SHOP_PRODUCT);
+  }
+
+  let display = null;
+  switch (route) {
+    case (routes.SHOP_GRID):
+      display = <ProductGrid products={products} categories={categories} categoryId={selectedCategory} onSelectProduct={onSelectProduct} />
+      break;
+    case (routes.SHOP_PRODUCT):
+      display = <ProductView product={products[selectedProduct]} routes={routes} onRouteChange={onRouteChange} onAddToCart={onAddToCart} />
+      break;
+    default:
+      display = shopHome(categories, onSelectCategory);
+      break;
+  }
+
+  return (
+    <>
+      {display}
+    </>
+  );
+}
+
+const shopHome = (categories, onSelectCategory) => {
   return (
     <>
       <div className='ml5 mr5'>
@@ -34,4 +64,4 @@ const ProductCategories = ({ categories, onSelectCategory }) => {
   );
 }
 
-export default ProductCategories;
+export default Shop;

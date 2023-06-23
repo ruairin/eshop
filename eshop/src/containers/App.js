@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import './App.css';
 import 'tachyons';
 
-import ProductGrid from '../components/ProductGrid';
-import ProductView from '../components/ProductView';
 import Cart from '../components/Cart';
 import SignIn from '../components/SignIn';
 import Register from '../components/Register';
@@ -23,7 +21,7 @@ const products = temp.map((item, index) => {
 
   let category_id = 0;
   let image = '300.jpg';
-  if (index >= 20 && index < 40){
+  if (index >= 20 && index < 40) {
     category_id = 1;
     image = 'icons8-puffin-bird-96.png';
   } else if (index >= 40) {
@@ -75,9 +73,9 @@ const login = [
 ]
 
 const categories = [
-  {id: 0, title: 'Category 1', description: 'Description text for category 1', image: '300.jpg'},
-  {id: 1, title: 'Category 2', description: 'Description text for category 2', image: 'icons8-puffin-bird-96.png'},
-  {id: 2, title: 'Category 3', description: 'Description text for category 3', image: 'icons8-bee-swarm-96.png'},
+  { id: 0, title: 'Category 1', description: 'Description text for category 1', image: '300.jpg' },
+  { id: 1, title: 'Category 2', description: 'Description text for category 2', image: 'icons8-puffin-bird-96.png' },
+  { id: 2, title: 'Category 3', description: 'Description text for category 3', image: 'icons8-bee-swarm-96.png' },
 ]
 
 // ======= /DB Placeholders =========
@@ -96,21 +94,15 @@ const routes = Object.freeze({
 
 function App() {
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [route, setRoute] = useState(routes.SHOP_HOME);
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState({});
   const [isSignedIn, setIsSignedIn] = useState(false);
 
-  const onSelectProduct = (id) => {
-    // console.log(id);
-    setSelectedProduct(id);
-    onRouteChange(routes.SHOP_PRODUCT);
-  }
-
   const onSelectCategory = (id) => {
-    // console.log(id);
+    console.log(id);
+    console.log(route);
     setSelectedCategory(id);
     onRouteChange(routes.SHOP_GRID);
   }
@@ -177,14 +169,21 @@ function App() {
   // Logic for routing
   let display = null;
   switch (route) {
-    case (routes.SHOP_HOME):
-      display = <Shop categories={categories}  onSelectCategory={onSelectCategory} />
-      break;
-    case (routes.SHOP_GRID):
-      display = <ProductGrid products={products} categories={categories} categoryId={selectedCategory} onSelectProduct={onSelectProduct} />
-      break;
-    case (routes.SHOP_PRODUCT):
-      display = <ProductView product={products[selectedProduct]} onSelectProduct={onSelectProduct} onAddToCart={onAddToCart} />
+    case routes.SHOP_HOME:
+    case routes.SHOP_GRID:
+    case routes.SHOP_PRODUCT:
+      console.log(route);
+      display =
+        < Shop
+          products={products}
+          categories={categories}
+          routes={routes}
+          selectedCategory={selectedCategory}
+          onSelectCategory={onSelectCategory}
+          route={route}
+          onRouteChange={onRouteChange}
+          onAddToCart={onAddToCart}
+        />
       break;
     case (routes.CART):
       display = <Cart cart={cart} products={products} onDeleteFromCart={onDeleteFromCart} />
