@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-
+import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
 
 // TODO: login, users to be removed when DB implemented
-const SignIn = ({ onSignIn, onRouteChange, login, users }) => {
+const SignIn = ({ onSignIn }) => {
+
+  const navigate = useNavigate();
+
+  const { users, login } = useRouteLoaderData('root');
 
   // States for getting values from input fields
   const [email, setEmail] = useState('');
@@ -23,6 +27,7 @@ const SignIn = ({ onSignIn, onRouteChange, login, users }) => {
     } else {
       window.alert('Error signing in')
     }
+    navigate('/');
   }
 
   return (
@@ -62,7 +67,9 @@ const SignIn = ({ onSignIn, onRouteChange, login, users }) => {
               value="Sign in" />
           </div>
           <div className="lh-copy mt3">
-            <p onClick={() => onRouteChange('REGISTER')} href="#0" className="f6 link dim black db pointer">Register</p>
+            <Link to={'/register'}>
+              <p href="#0" className="f6 link dim black db pointer">Register</p>
+            </Link>
           </div>
         </div>
       </main>

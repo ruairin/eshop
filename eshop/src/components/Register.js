@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 
 // TODO: login, users to be removed when DB implemented
 const Register = ({ onRegister, login, users }) => {
+
+  const navigate = useNavigate();
 
   // States for getting values from input fields
   const [firstName, setFirstName] = useState('');
@@ -12,7 +15,6 @@ const Register = ({ onRegister, login, users }) => {
 
   const handleSubmitRegister = (loginDB, usersDB) => {
     // Call load user from app.js
-    console.log(firstName, lastName, email, password);
 
     // Check if already registered
     if (loginDB.find(entry => entry.email === email)) {
@@ -34,6 +36,7 @@ const Register = ({ onRegister, login, users }) => {
         }
       );
       onRegister();
+      navigate('/');
     }
   }
 

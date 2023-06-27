@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
+import { Link, useParams, useRouteLoaderData } from "react-router-dom";
 import './ProductView.css';
 import 'tachyons';
 
-const ProductView = ({ product, routes, onRouteChange, onAddToCart }) => {
+const ProductView = ({ onAddToCart }) => {
+  const params = useParams();
+  const productId = params.productId ? Number(params.productId) : null;
+
+  const { products } = useRouteLoaderData('root');
+  const product = products[productId];
   const { id, title, price, description, image, inventory } = product;
 
   // State for reading <input> for number to add to cart
@@ -11,12 +17,14 @@ const ProductView = ({ product, routes, onRouteChange, onAddToCart }) => {
   return (
     <>
       <div className='ma4'>
-        <button onClick={() => onRouteChange(routes.SHOP_GRID)}>Back</button>
+        <Link to={`/shop/category/${product.category_id}`}>
+          <button>Back</button>
+        </Link>
         <h1>{title}</h1>
 
         <div className='row'>
           <div className='column box'>
-            <img alt='product image' src={`/images/${image}`} width={400} />
+            <img alt='product' src={`/images/${image}`} width={400} />
           </div>
 
           <div className='column box'>

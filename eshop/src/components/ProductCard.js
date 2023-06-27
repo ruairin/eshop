@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import 'tachyons';
 
-const ProductCard = ({ product, onSelectProduct }) => {
+const ProductCard = ({ product }) => {
   const { id, title, price, image } = product;
   return (
     <div className='bg-light-green dib br3 pa3 ma2'>
@@ -10,7 +11,9 @@ const ProductCard = ({ product, onSelectProduct }) => {
       <div>
         <h2>{title}</h2>
         <p>{price}</p>
-        <button onClick={() => onSelectProduct(id)}>View</button>
+        <Link to={`/shop/products/${id}`}>
+          <button>View</button>
+        </Link>
       </div>
     </div>
   );

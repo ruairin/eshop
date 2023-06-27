@@ -1,14 +1,16 @@
 import React, { useMemo, useState } from "react";
 import ProductCard from './ProductCard';
 import Pagination from './Pagination';
+import { useParams, useRouteLoaderData } from "react-router-dom";
 
 import './ProductGrid.css';
 
 
-const ProductGrid = ({ products, categories, categoryId, onSelectProduct }) => {
-
+const ProductGrid = () => {
+  const params = useParams();
+  const categoryId = Number(params.categoryId);
+  const { products, categories } = useRouteLoaderData('root');
   const category = categories[categoryId];
-  console.log(category);
 
   // current page for pagination display
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,31 +26,25 @@ const ProductGrid = ({ products, categories, categoryId, onSelectProduct }) => {
     setCurrentPage(1);
   }
 
-  // start index in products array for the current grid items
-  const getCurrentGridIdxStart = () => {
-    return (currentPage - 1) * pageSize;
-  }
-
-  // end index in products array for the current grid items
-  const getCurrentGridIdxEnd = () => {
-    return Math.min(getCurrentGridIdxStart() + pageSize, products.length);
-  }
+  // start and end index in products array for the current grid items
+  const currentGridIdxStart = (currentPage - 1) * pageSize;
+  const currentGridIdxEnd =  Math.min(currentGridIdxStart + pageSize, products.length);
 
   const productsInCategory = useMemo(() => {
     // TODO: Replace with database query
-    return products.filter((product) => {return product.category_id === categoryId});
-  }, [products, categories, categoryId]);
+    return products.filter((product) => { return product.category_id === categoryId });
+  }, [products, categoryId]);
 
   // return an array of items to display on this page
   // based on the pagination 
   const currentGridItems = useMemo(() => {
 
-    const idxStart = getCurrentGridIdxStart();
-    const idxEnd = getCurrentGridIdxEnd();
+    const idxStart = currentGridIdxStart;
+    const idxEnd = currentGridIdxEnd;
 
     return productsInCategory.slice(idxStart, idxEnd);
 
-  }, [currentPage, pageSize, categoryId]);
+  }, [productsInCategory, currentGridIdxStart, currentGridIdxEnd]);
 
   return (
     <>
@@ -80,7 +76,7 @@ const ProductGrid = ({ products, categories, categoryId, onSelectProduct }) => {
           // only render currentGridItems (i.e. current subset of products based on pagination)
           currentGridItems.map((product) => {
             return (
-              <ProductCard product={product} onSelectProduct={onSelectProduct} />
+              <ProductCard product={product} />
             );
           })
         }
@@ -89,16 +85,16 @@ const ProductGrid = ({ products, categories, categoryId, onSelectProduct }) => {
       <div className='ml5 mr5'>
         <div className='pagination-container'>
           <div className='pagination-selector'>
-            <Pagination 
-              totalNumberItems={productsInCategory.length} 
-              itemsPerPage={pageSize} 
-              currentPage={currentPage} 
-              onPageChange={setCurrentPage} 
+            <Pagination
+              totalNumberItems={productsInCategory.length}
+              itemsPerPage={pageSize}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
             />
           </div>
           <div className='pagination-info'>
-            <p>{`Showing ${getCurrentGridIdxStart()+1}-${getCurrentGridIdxEnd()} of ${productsInCategory.length} items`}</p>
-          </div>  
+            <p>{`Showing ${currentGridIdxStart + 1} - ${currentGridIdxEnd} of ${productsInCategory.length} items`}</p>
+          </div>
         </div>
       </div>
     </>

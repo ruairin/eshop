@@ -1,28 +1,31 @@
 import React from "react";
+import { Link, useRouteLoaderData } from 'react-router-dom';
 import './NavBar.css';
 
-const NavBar = ({ onRouteChange, routes, categories, onSelectCategory }) => {
+const NavBar = () => {
+  const { categories } = useRouteLoaderData('root');
 
   return (
     <div className='tc ba'>
       <div class="bg-black-90 w-100 ph3 pv3 pv4-ns ph4-m ph5-l">
         <nav class="f6 fw6 ttu tracked">
-          <a className="link dim white dib mr3" href="#" title="Home" onClick={() => onRouteChange(routes.HOME)}>Home</a>
-          <a class="link dim white dib mr3" href="#" title="About" onClick={() => onRouteChange(routes.ABOUT)}>About</a>
-          
+          <Link class="link dim white dib mr3" href="#" title="Home" to={'/'} >Home</Link>
+          <Link class="link dim white dib mr3" href="#" title="About" to={'/about/'} >About</Link>
+
           <div className="dropdown">
-            <a class="link dim white dib mr3" href="#" title="Shop" onClick={() => onRouteChange(routes.SHOP_HOME)}>Shop</a>
+            <Link class="link dim white dib mr3" href="#" title="Shop" to={'/shop/'} >Shop</Link>
             <div className='dropdown-content'>
               {
                 categories.map((category) => {
+                  const { id } = category;
                   return (
-                    <a className="link dim white dib mr3" href="#" title={category.title} onClick={() => onSelectCategory(category.id)}>{category.title}</a>
+                    <Link className="link dim white dib mr3" href="#" title={category.title} to={`/shop/category/${id}`}>{category.title}</Link>
                   );
                 })
               }
             </div>
           </div>
-          <a class="link dim white dib" href="#" title="Contact" onClick={() => onRouteChange(routes.CONTACT)}>Contact</a>
+          <Link class="link dim white dib mr3" href="#" title="Contact" to={'/contact/'} >Contact</Link>
         </nav>
       </div>
     </div>

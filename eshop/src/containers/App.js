@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import './App.css';
-import 'tachyons';
 
 import Cart from '../components/Cart';
 import SignIn from '../components/SignIn';
@@ -9,103 +6,26 @@ import Register from '../components/Register';
 import Home from '../components/Home';
 import About from '../components/About';
 import Contact from '../components/Contact';
-import NavBar from '../components/NavBar';
-import Banner from '../components/Banner';
-import Footer from '../components/Footer';
 import Shop from '../components/Shop';
+import ShopHome from '../components/ShopHome';
+import ErrorPage from './ErrorPage';
+import Root, { loader as rootLoader } from '../components/Root';
+import ProductGrid from "../components/ProductGrid";
+import ProductView from "../components/ProductView";
 
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
-// ======= DB Placeholders =========
-const temp = [...Array(60).keys()];
-const products = temp.map((item, index) => {
-
-  let category_id = 0;
-  let image = '300.jpg';
-  if (index >= 20 && index < 40) {
-    category_id = 1;
-    image = 'icons8-puffin-bird-96.png';
-  } else if (index >= 40) {
-    category_id = 2;
-    image = 'icons8-bee-swarm-96.png';
-  }
-
-  return (
-    {
-      id: `${item}`,
-      title: `Product ${item + 1}`,
-      price: 2.99,
-      description: `This is product ${item + 1}`,
-      prod_code: `SKU001 ${item + 1}`,
-      image: image,
-      inventory: 100,
-      category_id: category_id,
-    }
-  );
-});
-console.log(products);
-
-
-const users = [
-  {
-    id: 0,
-    email: 'ted@gmail.com',
-    firstName: 'Ted',
-    lastName: 'Danson'
-  },
-  {
-    id: 1,
-    email: 'mike@gmail.com',
-    firstName: 'Mike',
-    lastName: 'Mahoney'
-  },
-  {
-    id: 2,
-    email: 'jack@gmail.com',
-    firstName: 'Jack',
-    lastName: 'Jones'
-  },
-]
-
-const login = [
-  { email: 'ted@gmail.com', hash: '1234' },
-  { email: 'mike@gmail.com', hash: 'xxxx' },
-  { email: 'jack@gmail.com', hash: 'YYYY' },
-]
-
-const categories = [
-  { id: 0, title: 'Category 1', description: 'Description text for category 1', image: '300.jpg' },
-  { id: 1, title: 'Category 2', description: 'Description text for category 2', image: 'icons8-puffin-bird-96.png' },
-  { id: 2, title: 'Category 3', description: 'Description text for category 3', image: 'icons8-bee-swarm-96.png' },
-]
-
-// ======= /DB Placeholders =========
-
-const routes = Object.freeze({
-  SHOP_HOME: 'SHOP_HOME',
-  SHOP_GRID: 'SHOP_GRID',
-  SHOP_PRODUCT: 'SHOP_PRODUCT',
-  CART: 'CART',
-  SIGN_IN: 'SIGN_IN',
-  REGISTER: 'REGISTER',
-  HOME: 'HOME',
-  ABOUT: 'ABOUT',
-  CONTACT: 'CONTACT'
-});
+import './App.css';
+import 'tachyons';
 
 function App() {
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [route, setRoute] = useState(routes.SHOP_HOME);
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState({});
   const [isSignedIn, setIsSignedIn] = useState(false);
-
-  const onSelectCategory = (id) => {
-    console.log(id);
-    console.log(route);
-    setSelectedCategory(id);
-    onRouteChange(routes.SHOP_GRID);
-  }
 
   const onAddToCart = (id, qty) => {
     const newCart = [...cart];
@@ -134,27 +54,19 @@ function App() {
     setCart(newCart);
   }
 
-  const onRouteChange = (route) => {
-    setRoute(route);
-  }
-
   const onSignIn = (user) => {
     loadUser(user);
     setIsSignedIn(true);
-    setRoute(routes.HOME);
   }
 
   const onSignOut = () => {
     loadUser({});
     setIsSignedIn(false);
-    setRoute(routes.HOME);
   }
 
   const onRegister = () => {
     loadUser({});
     setIsSignedIn(false);
-    setRoute(routes.SIGN_IN);
-    console.log(users);
   }
 
   const loadUser = (user) => {
@@ -166,55 +78,63 @@ function App() {
     });
   }
 
-  // Logic for routing
-  let display = null;
-  switch (route) {
-    case routes.SHOP_HOME:
-    case routes.SHOP_GRID:
-    case routes.SHOP_PRODUCT:
-      console.log(route);
-      display =
-        < Shop
-          products={products}
-          categories={categories}
-          routes={routes}
-          selectedCategory={selectedCategory}
-          onSelectCategory={onSelectCategory}
-          route={route}
-          onRouteChange={onRouteChange}
-          onAddToCart={onAddToCart}
-        />
-      break;
-    case (routes.CART):
-      display = <Cart cart={cart} products={products} onDeleteFromCart={onDeleteFromCart} />
-      break;
-    case (routes.SIGN_IN):
-      display = <SignIn onSignIn={onSignIn} onRouteChange={onRouteChange} login={login} users={users} />
-      break;
-    case (routes.REGISTER):
-      display = <Register onRegister={onRegister} login={login} users={users} />
-      break;
-    case (routes.HOME):
-      display = <Home />
-      break;
-    case (routes.ABOUT):
-      display = <About />
-      break;
-    case (routes.CONTACT):
-      display = <Contact />
-      break;
-    default:
-      display = <Home />
-  }
-
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} />,
+      errorElement: <ErrorPage />,
+      id: 'root',
+      loader: rootLoader,
+      children: [
+        {
+          // This causes the error element to display in the right pane (i.e. as a child of root)
+          // Without this, you get the entire page as an error (i.e. the error element in root is rendered)
+          errorElement: <ErrorPage />,
+          children: [
+            { index: true, element: <Home /> },
+            {
+              path: 'about/',
+              element: <About />,
+            },
+            {
+              path: 'contact/',
+              element: <Contact />,
+            },
+            {
+              path: 'shop/',
+              element: < Shop />,
+              children: [
+                { index: true, element: <ShopHome /> },
+                {
+                  path: 'category/:categoryId/',
+                  element: <ProductGrid />,
+                },
+                {
+                  path: 'products/:productId/',
+                  element: <ProductView onAddToCart={onAddToCart} />,
+                },
+              ]
+            },
+            {
+              path: 'cart/',
+              element: <Cart cart={cart} onDeleteFromCart={onDeleteFromCart} />,
+            },
+            {
+              path: 'signIn/',
+              element: <SignIn onSignIn={onSignIn} />,
+            },
+            {
+              path: 'register/',
+              element: <Register onRegister={onRegister} />
+            }
+          ]
+        }
+      ]
+    }
+  ]);
 
   return (
-    <div>
-      <Banner onRouteChange={onRouteChange} onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} routes={routes} />
-      <NavBar onRouteChange={onRouteChange} routes={routes} categories={categories} onSelectCategory={onSelectCategory} />
-      {display}
-      <Footer />
-    </div>
+    <RouterProvider router={router} />
   );
 }
 

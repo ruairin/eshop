@@ -1,7 +1,11 @@
 import React from "react";
+import { useRouteLoaderData } from "react-router-dom";
 import './Cart.css';
 
-const Cart = ({ cart, products, onDeleteFromCart }) => {
+const Cart = ({ cart, onDeleteFromCart }) => {
+
+  const { products } = useRouteLoaderData('root');
+
   return (
     <>
       <div className="pa4" style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column' }}>
@@ -28,7 +32,7 @@ const Cart = ({ cart, products, onDeleteFromCart }) => {
             cart.map((item) => {
               // get product details for item.id
               const product = products[item.id];
-              const { id, title, price, image } = product;
+              const { title, price, image } = product;
               return (
                 <>
                   <tr>
