@@ -8,7 +8,7 @@ import Register from '../components/Register';
 import Home from '../components/Home';
 import About from '../components/About';
 import Contact from '../components/Contact';
-import ErrorPage from './ErrorPage';
+import ErrorPage from '../components/ErrorPage';
 
 import Shop from '../components/shop/Shop';
 import ShopHome from '../components/shop/ShopHome';
