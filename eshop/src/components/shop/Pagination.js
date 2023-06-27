@@ -1,7 +1,7 @@
 // This implementation is a similified version of the following:
 // https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
 
-import React, { useState } from 'react';
+import React from 'react';
 import './Pagination.css';
 
 const Pagination = (props) => {

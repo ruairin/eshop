@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 
+import Root, { loader as rootLoader } from '../components/Root';
+
 import Cart from '../components/Cart';
 import SignIn from '../components/SignIn';
 import Register from '../components/Register';
 import Home from '../components/Home';
 import About from '../components/About';
 import Contact from '../components/Contact';
-import Shop from '../components/Shop';
-import ShopHome from '../components/ShopHome';
 import ErrorPage from './ErrorPage';
-import Root, { loader as rootLoader } from '../components/Root';
-import ProductGrid from "../components/ProductGrid";
-import ProductView from "../components/ProductView";
+
+import Shop from '../components/shop/Shop';
+import ShopHome from '../components/shop/ShopHome';
+import ProductGrid from "../components/shop/ProductGrid";
+import ProductView from "../components/shop/ProductView";
 
 import {
   createBrowserRouter,
