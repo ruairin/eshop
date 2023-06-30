@@ -7,7 +7,7 @@ const Home = () => {
       <div className=" px-6 py-10">
         <div className='container mx-auto'>
           <h2 className='page-title-font py-2'>Home</h2>
-          <div className='grid grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 sm:grid-cols-3 gap-6'>
             <div className="col-span-2 pt-4">
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,

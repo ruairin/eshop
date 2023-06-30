@@ -6,7 +6,7 @@ const CategoryCard = ({ category }) => {
   const { id, title, image, description } = category;
   return (
     <Link to={`/shop/category/${id}`}>
-      <div className='group px-6 py-3 max-w-sm rounded overflow-hidden shadow-lg'>
+      <div className='group px-6 py-3 max-w-sm rounded overflow-hidden shadow-md'>
         {/* Note: /images/ below refers to the images folder within /public/ */}
         <img alt='category' src={`/images/${image}`} width={200} />
         <div className="px-6 py-4">

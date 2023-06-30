@@ -24,7 +24,7 @@ const ShopHome = () => {
         </div>
         
         <div className='container mx-auto'>
-          <div className="grid grid-cols-3 gap-x-4 grid-gap-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fill,200px)] gap-x-4 grid-gap-y-2">
           {
             // only render currentGridItems (i.e. current subset of products based on pagination)
             categories.map((category) => {

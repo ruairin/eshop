@@ -8,7 +8,7 @@ const Cart = ({ cart, onDeleteFromCart }) => {
 
   return (
     <>
-      <div className="px-20 py-10">
+      <div className="px-2 sm:px-20 py-10">
         <div className="" style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column' }}>
           <h2 className='page-title-font'>Cart</h2>
 
@@ -25,11 +25,11 @@ const Cart = ({ cart, onDeleteFromCart }) => {
           <table className='py-10' cellSpacing='0'>
             <thead>
               <tr>
-                <th className="font-bold border-b b--black-20 pb-3 tl">Title</th>
-                <th className="font-bold border-b b--black-20 pb-3 tl">Image</th>
-                <th className="font-bold border-b b--black-20 pb-3 tl">Quantity</th>
-                <th className="font-bold border-b b--black-20 pb-3 tl">Price</th>
-                <th className="font-bold border-b b--black-20 pb-3 tl">Delete Item</th>
+                <th className="font-bold border-b b--black-20 pb-3 text-left">Title</th>
+                <th className="font-bold border-b b--black-20 pb-3 text-left hidden sm:block">Image</th>
+                <th className="font-bold border-b b--black-20 pb-3 text-left">Qty.</th>
+                <th className="font-bold border-b b--black-20 pb-3 text-left">Price</th>
+                <th className="font-bold border-b b--black-20 pb-3 text-left">Delete</th>
               </tr>
             </thead>
             {
@@ -42,11 +42,11 @@ const Cart = ({ cart, onDeleteFromCart }) => {
                   return (
                     <>
                       <tr>
-                        <td className='font-bold border-b b--black-20 py-3 tl'>{title}</td>
-                        <td className='font-bold border-b b--black-20 py-3 tl'><img alt='productImage' src={`/images/${image}`} width={50} /></td>
-                        <td className='font-bold border-b b--black-20 py-3 tl'>{item.qty}</td>
-                        <td className='font-bold border-b b--black-20 py-3 tl'>{price}</td>
-                        <td className='font-bold border-b b--black-20 py-3 tl link pointer underline' onClick={() => onDeleteFromCart(item.id)}>Delete</td>
+                        <td className='font-bold border-b b--black-20 py-3 text-left'>{title}</td>
+                        <td className='font-bold border-b b--black-20 py-3 text-left hidden sm:block'><img alt='productImage' src={`/images/${image}`} width={50} /></td>
+                        <td className='font-bold border-b b--black-20 py-3 text-left'>{item.qty}</td>
+                        <td className='font-bold border-b b--black-20 py-3 text-left'>{price}</td>
+                        <td className='font-bold border-b b--black-20 py-3 text-left link pointer underline' onClick={() => onDeleteFromCart(item.id)}>Delete</td>
                       </tr>
                     </>
                   );

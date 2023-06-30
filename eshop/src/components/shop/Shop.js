@@ -12,9 +12,9 @@ const Shop = () => {
 
   return (
     <>
-      <div className='flex-container'>
-        <div className='flex-row'>
-          <div className='nav-pane'>
+      <div className='container mx-auto'>
+        <div className='grid grid-cols-1 sm:grid-cols-4 gap-6 grid-flow-col auto-cols-auto'>
+          <div className='hidden sm:block nav-pane'>
 
             <h4 className='nav-font-bold py-2'>Navigation</h4>
             <Link title="Home" to={'/'}>
@@ -41,7 +41,7 @@ const Shop = () => {
               <h4 className="py-2">Contact</h4>
             </Link>
           </div>
-          <div className='product-pane'>
+          <div className='col-span-3 product-pane'>
             <Outlet />
           </div>
         </div>

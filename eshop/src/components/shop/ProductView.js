@@ -22,7 +22,7 @@ const ProductView = ({ onAddToCart }) => {
         <h1 className='font-bold page-title-font'>{title}</h1>
 
         <div className='container mx-auto pt-4'>
-          <div className='grid grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
 
 
             <div>
@@ -64,7 +64,11 @@ const ProductView = ({ onAddToCart }) => {
                       onInput={e => setQty(e.target.value)}
                     />
                   </div>
-                  <button className='mt-6 px-4 py-4 rounded font-bold bg-orange-400 hover:bg-orange-600' onClick={() => onAddToCart(id, qty)}>Add to Cart</button>
+                  <button
+                    className='mt-6 px-4 py-4 rounded font-bold bg-orange-400 hover:bg-orange-600'
+                    onClick={() => onAddToCart(id, qty)}>
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
