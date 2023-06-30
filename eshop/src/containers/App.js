@@ -21,7 +21,6 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import 'tachyons';
 
 function App() {
 
@@ -83,7 +82,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Root onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} />,
+      element: <Root onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} cart={cart}/>,
       errorElement: <ErrorPage />,
       id: 'root',
       loader: rootLoader,

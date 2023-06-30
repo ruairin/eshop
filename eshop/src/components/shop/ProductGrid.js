@@ -28,7 +28,7 @@ const ProductGrid = () => {
 
   // start and end index in products array for the current grid items
   const currentGridIdxStart = (currentPage - 1) * pageSize;
-  const currentGridIdxEnd =  Math.min(currentGridIdxStart + pageSize, products.length);
+  const currentGridIdxEnd = Math.min(currentGridIdxStart + pageSize, products.length);
 
   const productsInCategory = useMemo(() => {
     // TODO: Replace with database query
@@ -48,16 +48,20 @@ const ProductGrid = () => {
 
   return (
     <>
-      <div className='ml5 mr5'>
-        <h1>{`${category.title}`}</h1>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type
-          specimen book. It has survived not only five centuries, but also the leap into
-          electronic typesetting, remaining essentially unchanged. It was popularised in
-          the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-          and more recently with desktop publishing software like Aldus PageMaker including
-          versions of Lorem Ipsum.</p>
+      <div className=" px-10 py-10">
+        <div className="page-title-font py-2">
+          <h2>{`${category.title}`}</h2>
+        </div>
+        <div className="pt-2 pb-10">
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type
+            specimen book. It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus PageMaker including
+            versions of Lorem Ipsum.</p>
+        </div>
 
         <div className='products-filter-box'>
           <div className='products-filter-items'>
@@ -69,31 +73,32 @@ const ProductGrid = () => {
             </select>
           </div>
         </div>
-      </div>
 
-      <div className='grid-container'>
-        {
-          // only render currentGridItems (i.e. current subset of products based on pagination)
-          currentGridItems.map((product) => {
-            return (
-              <ProductCard product={product} />
-            );
-          })
-        }
-      </div>
 
-      <div className='ml5 mr5'>
-        <div className='pagination-container'>
-          <div className='pagination-selector'>
-            <Pagination
-              totalNumberItems={productsInCategory.length}
-              itemsPerPage={pageSize}
-              currentPage={currentPage}
-              onPageChange={setCurrentPage}
-            />
-          </div>
-          <div className='pagination-info'>
-            <p>{`Showing ${currentGridIdxStart + 1} - ${currentGridIdxEnd} of ${productsInCategory.length} items`}</p>
+        <div className='grid-container'>
+          {
+            // only render currentGridItems (i.e. current subset of products based on pagination)
+            currentGridItems.map((product) => {
+              return (
+                <ProductCard product={product} />
+              );
+            })
+          }
+        </div>
+
+        <div className='ml5 mr5'>
+          <div className='pagination-container'>
+            <div className='pagination-selector'>
+              <Pagination
+                totalNumberItems={productsInCategory.length}
+                itemsPerPage={pageSize}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+              />
+            </div>
+            <div className='pagination-info'>
+              <p>{`Showing ${currentGridIdxStart + 1} - ${currentGridIdxEnd} of ${productsInCategory.length} items`}</p>
+            </div>
           </div>
         </div>
       </div>

@@ -97,10 +97,10 @@ const Pagination = (props) => {
           const isActive = page === currentPage;
 
           return (
-            <li className={isActive ? 'page active' : 'page'}
-              onClick={isSeparator ? null : () => onSelectPage(page)}>
-              {page}
-            </li>
+              <li className={isActive ? 'page page-item active' : 'page page-item'}
+                onClick={isSeparator ? null : () => onSelectPage(page)}>
+                {page}
+              </li>
           );
 
         })}

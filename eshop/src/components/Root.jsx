@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 
-import NavBar from '../components/NavBar';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
 
@@ -15,11 +14,11 @@ export async function loader() {
   return { products, categories, users, login };
 }
 
-const Root = ({ onRouteChange, onSignOut, isSignedIn, user, routes, categories, onSelectCategory }) => {
+const Root = ({ onSignOut, isSignedIn, user, cart }) => {
   return (
     <>
-      <Banner onRouteChange={onRouteChange} onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} routes={routes} />
-      <NavBar onRouteChange={onRouteChange} routes={routes} categories={categories} onSelectCategory={onSelectCategory} />
+      <Banner onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} cart={cart} />
+      {/* <NavBar /> */}
       <Outlet />
       <Footer />
     </>

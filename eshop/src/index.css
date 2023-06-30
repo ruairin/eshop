@@ -1,4 +1,8 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -11,6 +15,40 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */
 
+@font-face {
+  font-family: 'Manolo Mono Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Manolo Mono Regular'), url('manolomono.woff') format('woff');
+  }
 
+.nav-font {
+    font-family:'Manolo Mono Regular';
+    font-size: 15px;
+  }
+
+.nav-font-bold {
+    font-family:'Manolo Mono Regular';
+    font-weight:bold;
+    font-size: 20px;
+  }
+
+.banner-title-font {
+    font-family:'Manolo Mono Regular';
+    font-weight:bold;
+    font-size: 50px;
+  }
+
+.page-title-font {
+    font-family:'Manolo Mono Regular';
+    font-weight:bold;
+    font-size: 30px;
+  }
+
+.footer-title-font {
+    font-family:'Manolo Mono Regular';
+    font-weight:bold;
+    font-size: 25px;
+  }

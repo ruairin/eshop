@@ -4,13 +4,13 @@ const temp = [...Array(60).keys()];
 const products = temp.map((item, index) => {
 
   let category_id = 0;
-  let image = '300.jpg';
+  let image = '3151574_nintendo_switch_video_switch_video game_game_nintendo.svg';
   if (index >= 20 && index < 40) {
     category_id = 1;
-    image = 'icons8-puffin-bird-96.png';
+    image = '3151605_movie_transformers_robot_autobots.svg';
   } else if (index >= 40) {
     category_id = 2;
-    image = 'icons8-bee-swarm-96.png';
+    image = '3151573_retro_phone_old_nokia.svg';
   }
 
   return (
@@ -57,9 +57,9 @@ const login = [
 ]
 
 const categories = [
-  { id: 0, title: 'Category 1', description: 'Description text for category 1', image: '300.jpg' },
-  { id: 1, title: 'Category 2', description: 'Description text for category 2', image: 'icons8-puffin-bird-96.png' },
-  { id: 2, title: 'Category 3', description: 'Description text for category 3', image: 'icons8-bee-swarm-96.png' },
+  { id: 0, title: 'Category 1', description: 'Description text for category 1', image: '3151574_nintendo_switch_video_switch_video game_game_nintendo.svg' },
+  { id: 1, title: 'Category 2', description: 'Description text for category 2', image: '3151605_movie_transformers_robot_autobots.svg' },
+  { id: 2, title: 'Category 3', description: 'Description text for category 3', image: '3151573_retro_phone_old_nokia.svg' },
 ]
 
 export function getCategories() {
