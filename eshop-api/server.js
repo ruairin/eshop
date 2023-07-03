@@ -22,8 +22,9 @@ app.use(cors());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/products', (req, res) => { products.handleGetProducts(req, res, db) });
+app.get('/categories', (req, res) => { products.handleGetCategories(req, res, db) });
 
-// /categories
+
 // /signIn
 // /register
 // /getCartItems
