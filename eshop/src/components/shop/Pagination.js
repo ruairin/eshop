@@ -90,14 +90,14 @@ const Pagination = (props) => {
   return (
     <>
       <ul className='pagination'>
-        <li className='arrow' onClick={onPreviousPage}>{"<"}</li>
+        <li key="0" className='arrow' onClick={onPreviousPage}>{"<"}</li>
 
-        {pagesList.map(page => {
+        {pagesList.map( (page, index) => {
           const isSeparator = page === separator;
           const isActive = page === currentPage;
 
           return (
-              <li className={isActive ? 'page page-item active' : 'page page-item'}
+              <li key={index+1} className={isActive ? 'page page-item active' : 'page page-item'}
                 onClick={isSeparator ? null : () => onSelectPage(page)}>
                 {page}
               </li>
@@ -105,7 +105,7 @@ const Pagination = (props) => {
 
         })}
 
-        <li className='arrow' onClick={onNextPage}>{">"}</li>
+        <li key={pagesList.length+1} className='arrow' onClick={onNextPage}>{">"}</li>
       </ul>
     </>
   );

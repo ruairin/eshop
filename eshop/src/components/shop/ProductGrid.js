@@ -65,7 +65,7 @@ const ProductGrid = () => {
 
         <div className='products-filter-box'>
           <div className='products-filter-items'>
-            <label className='pr3 white' for='show-limit'>Show: </label>
+            <label className='pr3 white' htmlFor='show-limit'>Show: </label>
             <select id='show-limit' value={pageSize} onChange={handlePageSizeChange}>
               <option>10</option>
               <option>20</option>
@@ -80,7 +80,7 @@ const ProductGrid = () => {
             // only render currentGridItems (i.e. current subset of products based on pagination)
             currentGridItems.map((product) => {
               return (
-                <ProductCard product={product} />
+                <ProductCard key={product.id} product={product} />
               );
             })
           }

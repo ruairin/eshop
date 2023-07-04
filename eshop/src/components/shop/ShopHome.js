@@ -29,7 +29,7 @@ const ShopHome = () => {
             // only render currentGridItems (i.e. current subset of products based on pagination)
             categories.map((category) => {
               return (
-                <CategoryCard category={category} />
+                <CategoryCard key={category.id} category={category} />
               );
             })
           }

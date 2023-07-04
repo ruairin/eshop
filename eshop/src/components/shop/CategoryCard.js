@@ -13,7 +13,7 @@ const CategoryCard = ({ category }) => {
           <div className='font-bold text-xl mb-2'>
             {title}
           </div>
-          <p class="text-gray-700 text-base">
+          <p className="text-gray-700 text-base">
             {description}
           </p>
           <div className="pt-4 text-right">
