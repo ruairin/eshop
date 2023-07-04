@@ -8,7 +8,7 @@ const ProductView = ({ onAddToCart }) => {
 
   const { products } = useRouteLoaderData('root');
   const product = products[productId];
-  const { id, title, price, description, image, inventory } = product;
+  const { id, title, price, description, image_name, inventory } = product;
 
   // State for reading <input> for number to add to cart
   const [qty, setQty] = useState(1);
@@ -27,7 +27,7 @@ const ProductView = ({ onAddToCart }) => {
 
             <div>
               {/* <div className='column box'> */}
-              <img alt='product' src={`/images/${image}`} width={250} />
+              <img alt='product' src={`/images/${image_name}`} width={250} />
             </div>
 
             <div className='px-8'>

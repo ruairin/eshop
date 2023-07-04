@@ -3,13 +3,13 @@
 const temp = [...Array(60).keys()];
 const products = temp.map((item, index) => {
 
-  let category_id = 0;
+  let category_id = 1;
   let image = '3151574_nintendo_switch_video_switch_video game_game_nintendo.svg';
   if (index >= 20 && index < 40) {
-    category_id = 1;
+    category_id = 2;
     image = '3151605_movie_transformers_robot_autobots.svg';
   } else if (index >= 40) {
-    category_id = 2;
+    category_id = 3;
     image = '3151573_retro_phone_old_nokia.svg';
   }
 
@@ -57,14 +57,33 @@ const login = [
 ]
 
 const categories = [
-  { id: 0, title: 'Category 1', description: 'Description text for category 1', image: '3151574_nintendo_switch_video_switch_video game_game_nintendo.svg' },
-  { id: 1, title: 'Category 2', description: 'Description text for category 2', image: '3151605_movie_transformers_robot_autobots.svg' },
-  { id: 2, title: 'Category 3', description: 'Description text for category 3', image: '3151573_retro_phone_old_nokia.svg' },
+  { id: 1, title: 'Category 1', description: 'Description text for category 1', image_name: '3151574_nintendo_switch_video_switch_video game_game_nintendo.svg' },
+  { id: 2, title: 'Category 2', description: 'Description text for category 2', image_name: '3151605_movie_transformers_robot_autobots.svg' },
+  { id: 3, title: 'Category 3', description: 'Description text for category 3', image_name: '3151573_retro_phone_old_nokia.svg' },
 ]
 
-export function getCategories() {
-  return categories;
+/**
+ * Get product categories from server
+ * 
+ * @returns JSON array of categories
+ */
+
+export async function getCategories() {
+  try {
+    const response = await fetch('http://localhost:3000/categories');
+    if (response.ok){
+      const categories = await response.json();
+      return categories;
+    }
+    throw new Error(response.status);
+  } catch (error) {
+    console.log("Error in fetch getCategories(): ", error);
+  }
 }
+
+// export async function getCategories() {
+//   return categories;
+// }
 
 export function getLogin() {
   return login;
@@ -74,6 +93,35 @@ export function getUsers() {
   return users;
 }
 
-export function getProducts() {
-  return products;
+/**
+ * Get product data from server
+ * 
+ * @returns JSON array of products
+ */
+
+export async function getProducts() {
+  try {
+    const response = await fetch('http://localhost:3000/products');
+    if (response.ok){
+      const products = await response.json();
+      return products;
+    }
+    throw new Error(response.status);
+  } catch (error) {
+    console.log("Error in fetch getProducts(): ", error);
+  }
 }
+
+// export function getProducts() {
+
+//   const products =
+//     fetch('http://localhost:3000/products')
+//       .then(response => {
+//         if (response.ok) {
+//           return response.json();
+//         }
+//         throw response.status;
+//       })
+//       .catch(err => console.log("Error in fetch getProducts(): ", err));
+//   return products;
+// }

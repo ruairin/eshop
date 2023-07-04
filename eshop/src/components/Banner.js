@@ -118,23 +118,23 @@ const Banner = ({ onSignOut, isSignedIn, user, cart }) => {
             <div className='hidden sm:block flex gap-5 items-center'>
               <ul className='flex items-center gap-4 cursor-pointer'>
 
-                <Link class="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Home" to={'/'} >Home</Link>
-                <Link class="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="About" to={'/about/'} >About</Link>
+                <Link key="1" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Home" to={'/'} >Home</Link>
+                <Link key="2" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="About" to={'/about/'} >About</Link>
 
                 <div className="dropdown">
-                  <Link class="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Shop" to={'/shop/'} >Shop</Link>
+                  <Link key="3" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Shop" to={'/shop/'} >Shop</Link>
                   <div className='dropdown-content'>
                     {
                       categories.map((category) => {
                         const { id } = category;
                         return (
-                          <Link className="link dim dib mr3" href="#" title={category.title} to={`/shop/category/${id}`}>{category.title}</Link>
+                          <Link key={id} className="link dim dib mr3" href="#" title={category.title} to={`/shop/category/${id}`}>{category.title}</Link>
                         );
                       })
                     }
                   </div>
                 </div>
-                <Link class="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Contact" to={'/contact/'} >Contact</Link>
+                <Link className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Contact" to={'/contact/'} >Contact</Link>
                 {isSignedIn
                   ?
                   <>

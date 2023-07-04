@@ -10,7 +10,7 @@ const ProductGrid = () => {
   const params = useParams();
   const categoryId = Number(params.categoryId);
   const { products, categories } = useRouteLoaderData('root');
-  const category = categories[categoryId];
+  const category = categories[categoryId-1];
 
   // current page for pagination display
   const [currentPage, setCurrentPage] = useState(1);

@@ -33,7 +33,7 @@ const Shop = () => {
                   if (category.id === categoryId) {
                     className += ' text-orange-600 font-bold';
                   }
-                  return (<Link to={`category/${category.id}`}><li className={className}>{category.title}</li></Link>);
+                  return (<Link key={category.id} to={`category/${category.id}`}><li className={className}>{category.title}</li></Link>);
                 })
               }
             </ul>

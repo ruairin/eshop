@@ -6,8 +6,8 @@ import Footer from '../components/Footer';
 import { getCategories, getUsers, getLogin, getProducts } from "../api";
 
 export async function loader() {
-  const products = getProducts();
-  const categories = getCategories();
+  const products = await getProducts();
+  const categories = await getCategories();
   const users = getUsers();
   const login = getLogin();
 

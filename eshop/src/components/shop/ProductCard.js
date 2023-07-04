@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const ProductCard = ({ product }) => {
-  const { id, title, price, image } = product;
+  const { id, title, price, image_name } = product;
   return (
     // <div className='bg-light-green dib br3 pa3 ma2'>
     <Link to={`/shop/products/${id}`}>
       <div className='group px-6 py-3 max-w-sm rounded overflow-hidden shadow-lg'>
         {/* Note: /images/ below refers to the images folder within /public/ */}
-        <img alt='robots' src={`/images/${image}`} width={300} />
+        <img alt='image' src={`/images/${image_name}`} width={300} />
         <div className="px-2 py-2">
           <div className='font-bold text-xl mb-2'>
             <h2>{title}</h2>
