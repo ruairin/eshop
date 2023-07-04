@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
     <Link to={`/shop/products/${id}`}>
       <div className='group px-6 py-3 max-w-sm rounded overflow-hidden shadow-lg'>
         {/* Note: /images/ below refers to the images folder within /public/ */}
-        <img alt='image' src={`/images/${image_name}`} width={300} />
+        <img alt='product' src={`/images/${image_name}`} width={300} />
         <div className="px-2 py-2">
           <div className='font-bold text-xl mb-2'>
             <h2>{title}</h2>
