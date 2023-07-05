@@ -70,19 +70,19 @@ function App() {
     setIsSignedIn(false);
   }
 
-  const loadUser = (user) => {
+  const loadUser = (userData) => {
     setUser({
-      id: user.id,
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName
+      id: userData.id,
+      email: userData.email,
+      first_name: userData.first_name,
+      last_name: userData.last_name
     });
   }
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Root onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} cart={cart}/>,
+      element: <Root onSignOut={onSignOut} isSignedIn={isSignedIn} user={user} cart={cart} />,
       errorElement: <ErrorPage />,
       id: 'root',
       loader: rootLoader,
@@ -123,6 +123,7 @@ function App() {
             {
               path: 'signIn/',
               element: <SignIn onSignIn={onSignIn} />,
+              // action: signInAction,
             },
             {
               path: 'register/',
