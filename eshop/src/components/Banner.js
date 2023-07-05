@@ -82,7 +82,7 @@ const Banner = ({ onSignOut, isSignedIn, user, cart }) => {
                       <div className='text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300'
                         onClick={() => { onSignOut(); navigate('/') }}
                       >
-                        <Tooltip title={`Signed in as ${user.firstName}. Click to Sign Out`}>
+                        <Tooltip title={`Signed in as ${user.first_name}. Click to Sign Out`}>
                           <Badge badgeContent={"\u2713"} color="success">
                             <PersonIcon fontSize="medium" />
                           </Badge>
@@ -141,7 +141,7 @@ const Banner = ({ onSignOut, isSignedIn, user, cart }) => {
                     <div className='text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300'
                       onClick={() => { onSignOut(); navigate('/') }}
                     >
-                      <Tooltip title={`Signed in as ${user.firstName}. Click to Sign Out`}>
+                      <Tooltip title={`Signed in as ${user.first_name}. Click to Sign Out`}>
                         <Badge badgeContent={"\u2713"} color="success">
                           <PersonIcon fontSize="large" />
                         </Badge>

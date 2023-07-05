@@ -1,10 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 const cors = require('cors');
 const knex = require('knex');
 
 const config = require('./config.json');
 const products = require('./controllers/products');
+const signin = require('./controllers/signin');
+const register = require('./controllers/register');
 
 const db = knex({
   client: config.db_connection.client,
@@ -23,7 +26,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/products', (req, res) => { products.handleGetProducts(req, res, db) });
 app.get('/categories', (req, res) => { products.handleGetCategories(req, res, db) });
-
+app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) });
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt )});
 
 // /signIn
 // /register
