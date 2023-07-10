@@ -60,7 +60,11 @@ function App() {
     setIsSignedIn(true);
   }
 
-  const onSignOut = () => {
+  const onSignOut = async () => {
+    const response = await fetch('http://localhost:3000/signout', {
+      method: "GET",
+      credentials: "include",
+    });
     loadUser({});
     setIsSignedIn(false);
   }
