@@ -1,10 +1,67 @@
 import React from "react";
-import { useRouteLoaderData } from "react-router-dom";
+import { useRouteLoaderData, useLoaderData, redirect, Form } from "react-router-dom";
 import './Cart.css';
 
-const Cart = ({ cart, onDeleteFromCart }) => {
+export async function loader() {
+
+  try {
+    const response = await fetch('http://localhost:3000/getCartItems', {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      const cartItems = await response.json();
+      if (cartItems) {
+        return cartItems;
+      }
+    } else if (response.status === 401) {
+      return redirect('/signIn/');
+    } else {
+      throw new Error(response.status);
+    }
+  } catch (error) {
+    console.log("Error getting cart items: ", error);
+  }
+  return [];
+}
+
+export async function action({ request }) {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  console.log(data);
+
+  try {
+    const response = await fetch('http://localhost:3000/deleteCartItem', {
+      method: 'delete',
+      credentials: "include",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: data.id,
+      })
+    });
+
+    if (response.ok) {
+      const deletedItem = await response.json();
+      if (deletedItem) {
+        console.log(deletedItem);
+        return deletedItem;
+      }
+    } else if (response.status === 401) {
+      return redirect('/signIn/');
+    } else {
+      throw new Error(response.status);
+    }
+  } catch (error) {
+    console.log("Error deleting cart items: ", error);
+  }
+  return null;
+}
+
+const Cart = () => {
 
   const { products } = useRouteLoaderData('root');
+  const cartItems = useLoaderData();
 
   return (
     <>
@@ -22,7 +79,7 @@ const Cart = ({ cart, onDeleteFromCart }) => {
               and more recently with desktop publishing software like Aldus PageMaker including
               versions of Lorem Ipsum.</p>
           </div>
-          <table className='py-10' cellSpacing='0'>
+          <table className='py-10 px-10' cellSpacing='0'>
             <thead>
               <tr>
                 <th className="font-bold border-b b--black-20 pb-3 text-left">Title</th>
@@ -32,30 +89,39 @@ const Cart = ({ cart, onDeleteFromCart }) => {
                 <th className="font-bold border-b b--black-20 pb-3 text-left">Delete</th>
               </tr>
             </thead>
-            {
-              cart.length > 0
-                ?
-                cart.map((item) => {
-                  // get product details for item.id
-                  const product = products[item.id];
-                  const { title, price, image } = product;
-                  return (
-                    <>
-                      <tr>
-                        <td className='font-bold border-b b--black-20 py-3 text-left'>{title}</td>
-                        <td className='font-bold border-b b--black-20 py-3 text-left hidden sm:block'><img alt='productImage' src={`/images/${image}`} width={50} /></td>
-                        <td className='font-bold border-b b--black-20 py-3 text-left'>{item.qty}</td>
-                        <td className='font-bold border-b b--black-20 py-3 text-left'>{price}</td>
-                        <td className='font-bold border-b b--black-20 py-3 text-left link pointer underline' onClick={() => onDeleteFromCart(item.id)}>Delete</td>
-                      </tr>
-                    </>
-                  );
-                })
-                :
-                <tr>
-                  <td className='font-bold border-b b--black-20 pb-3 text-center pt-6 pb-6' colSpan={5}> Cart is currently empty </td>
-                </tr>
-            }
+            <tbody>
+              {
+                cartItems.length > 0
+                  ?
+                  cartItems.map((item) => {
+                    // get product details for item.id
+                    const product = products[item.product_id - 1];
+                    const { title, price, image_name } = product;
+                    return (
+                      <>
+                        <tr>
+                          <td className='border-b b--black-20 py-3 text-left'>{title}</td>
+                          <td className='border-b b--black-20 py-3 text-left hidden sm:block'><img alt='productImage' src={`/images/${image_name}`} width={50} /></td>
+                          <td className='border-b b--black-20 py-3 text-left'>{item.qty}</td>
+                          <td className='border-b b--black-20 py-3 text-left'>{price}</td>
+                          <td className='border-b b--black-20 py-3 text-left link cursor-pointer underline'
+                          // onClick={() => onDeleteFromCart(item.id)}
+                          >
+                            <Form method='delete' id='delete-item'>
+                              <button type='submit' value={item.id} name='id'>Delete</button>
+                            </Form>
+                          </td>
+
+                        </tr>
+                      </>
+                    );
+                  })
+                  :
+                  <tr>
+                    <td className='font-bold border-b b--black-20 pb-3 text-center pt-6 pb-6' colSpan={5}> Cart is currently empty </td>
+                  </tr>
+              }
+            </tbody>
           </table>
         </div>
       </div>

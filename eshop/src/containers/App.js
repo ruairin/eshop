@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Root, { loader as rootLoader } from '../components/Root';
 
-import Cart from '../components/Cart';
+import Cart, { loader as cartLoader, action as cartAction } from '../components/Cart';
 import SignIn from '../components/SignIn';
 import Register from '../components/Register';
 import Home from '../components/Home';
@@ -13,7 +13,7 @@ import ErrorPage from '../components/ErrorPage';
 import Shop from '../components/shop/Shop';
 import ShopHome from '../components/shop/ShopHome';
 import ProductGrid from "../components/shop/ProductGrid";
-import ProductView from "../components/shop/ProductView";
+import ProductView, { action as productViewAction } from "../components/shop/ProductView";
 
 import {
   createBrowserRouter,
@@ -28,32 +28,32 @@ function App() {
   const [user, setUser] = useState({});
   const [isSignedIn, setIsSignedIn] = useState(false);
 
-  const onAddToCart = (id, qty) => {
-    const newCart = [...cart];
-    const i = newCart.findIndex(item => item.id === id);
-    if (i > -1) { // id already in cart
-      newCart[i].qty += qty;
-    } else { // id not in cart already
-      newCart.push(
-        { id: id, qty: qty }
-      )
-    }
-    setCart(newCart);
-    window.alert("Added to Cart");
-    console.log(id, qty);
-    console.log(cart);
-  }
+  // const onAddToCart = (id, qty) => {
+  //   const newCart = [...cart];
+  //   const i = newCart.findIndex(item => item.id === id);
+  //   if (i > -1) { // id already in cart
+  //     newCart[i].qty += qty;
+  //   } else { // id not in cart already
+  //     newCart.push(
+  //       { id: id, qty: qty }
+  //     )
+  //   }
+  //   setCart(newCart);
+  //   window.alert("Added to Cart");
+  //   console.log(id, qty);
+  //   console.log(cart);
+  // }
 
-  const onDeleteFromCart = (id) => {
-    const newCart = [...cart];
-    const i = newCart.findIndex(item => item.id === id);
-    try {
-      newCart.splice(i, 1);
-    } catch {
-      window.alert('Error deleting item');
-    }
-    setCart(newCart);
-  }
+  // const onDeleteFromCart = (id) => {
+  //   const newCart = [...cart];
+  //   const i = newCart.findIndex(item => item.id === id);
+  //   try {
+  //     newCart.splice(i, 1);
+  //   } catch {
+  //     window.alert('Error deleting item');
+  //   }
+  //   setCart(newCart);
+  // }
 
   const onSignIn = (user) => {
     loadUser(user);
@@ -112,13 +112,16 @@ function App() {
                 },
                 {
                   path: 'products/:productId/',
-                  element: <ProductView onAddToCart={onAddToCart} />,
+                  element: <ProductView />,
+                  action: productViewAction
                 },
               ]
             },
             {
               path: 'cart/',
-              element: <Cart cart={cart} onDeleteFromCart={onDeleteFromCart} />,
+              element: <Cart />,
+              loader: cartLoader,
+              action: cartAction,
             },
             {
               path: 'signIn/',

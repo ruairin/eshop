@@ -28,7 +28,11 @@ const db = knex({
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({ 
+  credentials: true,
+  origin: 'http://localhost:3001'
+}));
+// app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -38,12 +42,13 @@ const oneDay = 1000 * 60 * 60 * 24;
 const secret = crypto.randomBytes(20).toString('hex');
 app.use(
   session({
-    secret: secret,
+    secret: 'keyboard cat', 
+    // secret: secret,
     store: store,
     saveUninitialized: false,
     cookie: { maxAge: oneDay },
     resave: false
-}));
+  }));
 
 
 app.get('/products', (req, res) => { products.handleGetProducts(req, res, db) });

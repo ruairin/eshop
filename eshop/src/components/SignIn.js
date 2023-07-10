@@ -56,6 +56,7 @@ const SignIn = ({ onSignIn }) => {
       const response = await fetch('http://localhost:3000/signin', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           email: email,
           password: password,

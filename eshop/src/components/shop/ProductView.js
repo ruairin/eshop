@@ -1,8 +1,42 @@
 import React, { useState } from 'react';
-import { Link, useParams, useRouteLoaderData } from "react-router-dom";
+import { Link, useParams, useRouteLoaderData, Form, redirect } from "react-router-dom";
 import './ProductView.css';
 
-const ProductView = ({ onAddToCart }) => {
+export async function action({ request }) {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  console.log(data);
+
+  try {
+    const response = await fetch('http://localhost:3000/addCartItem', {
+      method: 'post',
+      credentials: "include",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        product_id: data.id,
+        qty: data.qty
+      })
+    });
+
+    if (response.ok) {
+      const addedItem = await response.json();
+      if (addedItem) {
+        console.log(addedItem);
+        return addedItem;
+      }
+    } else if (response.status === 401) {
+      return redirect('/signIn/');
+    } else {
+      throw new Error(response.status);
+    }
+  } catch (error) {
+    console.log("Error deleting cart items: ", error);
+  }
+  return null;
+}
+
+
+const ProductView = () => {
   const params = useParams();
   const productId = params.productId ? Number(params.productId) : null;
 
@@ -24,9 +58,7 @@ const ProductView = ({ onAddToCart }) => {
         <div className='container mx-auto pt-4'>
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
 
-
             <div>
-              {/* <div className='column box'> */}
               <img alt='product' src={`/images/${image_name}`} width={250} />
             </div>
 
@@ -46,36 +78,44 @@ const ProductView = ({ onAddToCart }) => {
                 </div>
                 <div>
                   <div className=''>
-                    <label className='block font-bold mb-2'>Quantity:</label>
-                    <input
-                      className='shadow appearance-none border rounded w-50 py-2 px-3 text-gray-700 leading-tight focus:outline-sky-700 focus:shadow-outline'
-                      id='qty'
-                      type='text'
-                      size='10'
-                      pattern='[0-9]*'
-                      placeholder='Enter Quantity'
-                      defaultValue={qty}
-                      // Only allow numeric values to be entered
-                      onKeyPress={(event) => {
-                        if (!/[0-9]/.test(event.key)) {
-                          event.preventDefault();
-                        }
-                      }}
-                      onInput={e => setQty(e.target.value)}
-                    />
+                    <Form method='post' id='add-to-cart'>
+                      <label className='block font-bold mb-2'>Quantity:</label>
+                      <input
+                        className='shadow appearance-none border rounded w-50 py-2 px-3 text-gray-700 leading-tight focus:outline-sky-700 focus:shadow-outline'
+                        id='qty'
+                        name='qty'
+                        type='text'
+                        size='10'
+                        pattern='[0-9]*'
+                        placeholder='Enter Quantity'
+                        defaultValue={qty}
+                        // Only allow numeric values to be entered
+                        onKeyPress={(event) => {
+                          if (!/[0-9]/.test(event.key)) {
+                            event.preventDefault();
+                          }
+                        }}
+                        onInput={e => setQty(e.target.value)}
+                      />
+
+                      <button
+                        className='mx-6 px-4 py-4 rounded font-bold bg-orange-400 hover:bg-orange-600'
+                        value={id}
+                        name='id'
+                        type='submit'
+                      >
+                        Add to Cart
+                      </button>
+                    </Form>
                   </div>
-                  <button
-                    className='mt-6 px-4 py-4 rounded font-bold bg-orange-400 hover:bg-orange-600'
-                    onClick={() => onAddToCart(id, qty)}>
-                    Add to Cart
-                  </button>
+
                 </div>
               </div>
             </div>
           </div>
 
         </div>
-      </div>
+      </div >
     </>
   );
 }
