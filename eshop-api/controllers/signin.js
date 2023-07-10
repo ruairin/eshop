@@ -1,4 +1,5 @@
 
+
 const handleSignin = (req, res, db, bcrypt) => {
 
   const { email, password } = req.body;
@@ -10,14 +11,15 @@ const handleSignin = (req, res, db, bcrypt) => {
     .from('login')
     .where('email', '=', email)
     .then(data => {
-
       bcrypt.compare(password, data[0].hash).then(isValid => {
-
         if (isValid) {
           return (
             db.select('*').from('users')
               .where('email', '=', email)
-              .then(user => res.json(user[0]))
+              .then(user => {
+                req.session.userId = user[0].id;
+                res.json(user[0]);
+              })
               .catch(err => res.status(400).json("Error retrieving user"))
           );
         } else {
@@ -27,6 +29,10 @@ const handleSignin = (req, res, db, bcrypt) => {
         .catch(err => res.status(400).json("Incorrect credentials"))
     })
     .catch(err => res.status(400).json("Incorrect credentials"));
+}
+
+const generateAuthToken = () => {
+  return crypto.randomBytes(30).toString('hex');
 }
 
 module.exports = {
