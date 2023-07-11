@@ -24,12 +24,12 @@ const handleSignin = (req, res, db, bcrypt) => {
               .catch(err => res.status(400).json("Error retrieving user"))
           );
         } else {
-          return res.status(400).json("Incorrect credentials");
+          return res.status(401).json("Incorrect credentials");
         }
       })
-        .catch(err => res.status(400).json("Incorrect credentials"))
+        .catch(err => res.status(401).json("Incorrect credentials"))
     })
-    .catch(err => res.status(400).json("Incorrect credentials"));
+    .catch(err => res.status(401).json("Incorrect credentials"));
 }
 
 module.exports = {

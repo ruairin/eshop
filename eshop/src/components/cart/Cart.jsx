@@ -1,60 +1,40 @@
 import React from "react";
 import { useRouteLoaderData, useLoaderData, redirect, Form } from "react-router-dom";
+import { getCartItems, deleteCartItem } from '../../api/cart'
 import './Cart.css';
 
 export async function loader() {
 
-  try {
-    const response = await fetch('http://localhost:3000/getCartItems', {
-      method: "GET",
-      credentials: "include",
-    });
+  const result = await getCartItems();
 
-    if (response.ok) {
-      const cartItems = await response.json();
-      if (cartItems) {
-        return cartItems;
-      }
-    } else if (response.status === 401) {
+  console.log(result)
+  if (result instanceof Error) {
+    if (result.message === '401') {
+      alert('Please sign in to continue');
       return redirect('/signIn/');
-    } else {
-      throw new Error(response.status);
     }
-  } catch (error) {
-    console.log("Error getting cart items: ", error);
+    alert('Error getting cart items: ', result.message);
+  } else {
+    return result;
   }
-  return [];
 }
 
 export async function action({ request }) {
+
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
-  try {
-    const response = await fetch('http://localhost:3000/deleteCartItem', {
-      method: 'delete',
-      credentials: "include",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        id: data.id,
-      })
-    });
+  const result = await deleteCartItem(data.id);
 
-    if (response.ok) {
-      const deletedItem = await response.json();
-      if (deletedItem) {
-        console.log(deletedItem);
-        return deletedItem;
-      }
-    } else if (response.status === 401) {
+  if (result instanceof Error) {
+    if (result.message === '401') {
+      alert('Please sign in to continue');
       return redirect('/signIn/');
-    } else {
-      throw new Error(response.status);
     }
-  } catch (error) {
-    console.log("Error deleting cart items: ", error);
+    alert('Error deleting cart items: ', result.message);
+  } else {
+    return result;
   }
-  return null;
 }
 
 const Cart = () => {

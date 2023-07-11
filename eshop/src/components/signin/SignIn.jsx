@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, redirect } from "react-router-dom";
 
 import { userStore } from "../../store/store";
+
+import { signIn } from '../../api/account';
 
 // Note: The following action function was intended to work with the form data
 // that is recieved when the <Form> is submitted below. however there seems to be 
@@ -44,7 +46,7 @@ import { userStore } from "../../store/store";
 const SignIn = () => {
 
   const navigate = useNavigate();
-  const signIn = userStore(state => state.signIn);
+  const userStoreSignIn = userStore(state => state.signIn);
 
   // States for getting values from input fields
   const [email, setEmail] = useState('');
@@ -52,31 +54,21 @@ const SignIn = () => {
 
   const handleSubmitSignIn = async () => {
 
-    try {
-      const response = await fetch('http://localhost:3000/signin', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        })
-      });
+    const result = await signIn(email, password);
 
-      if (response.ok) {
-        const userEntry = await response.json();
-        if (userEntry) {
-          signIn(userEntry);
-        }
-      } else {
-        throw new Error(response.status);
+    if (result instanceof Error) {
+      if (result.message === '401') {
+        alert('Error signing in');
+        return redirect('/signIn/');
       }
-    } catch (error) {
-      console.log("Error in sign in: ", error);
-      window.alert('Error signing in')
+      alert('Error signing in: ', result.message);
+    } else {
+      userStoreSignIn(result);
+      navigate('/');
+      return result;
     }
-    navigate('/');
   }
+
 
   return (
     // <Form method='post' id='sign-in-form'>

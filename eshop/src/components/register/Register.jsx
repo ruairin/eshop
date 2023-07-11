@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { register } from '../../api/account';
 
 
 // TODO: login, users to be removed when DB implemented
@@ -14,23 +15,10 @@ const Register = () => {
   const [password, setPassword] = useState('');
 
   const handleSubmitRegister = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/register', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          first_name: firstName,
-          last_name: lastName,
-        })
-      });
 
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-    } catch (error) {
-      console.log("Error in register: ", error);
+    const result = register(email, password, firstName, lastName);
+
+    if (result instanceof Error) {
       window.alert('Error registering')
     }
     navigate('/');

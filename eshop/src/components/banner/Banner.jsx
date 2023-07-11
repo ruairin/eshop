@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import { signOut as serverSignOut } from "../../api/api";
+import { signOut as serverSignOut } from "../../api/account";
 import { userStore } from "../../store/store";
 
 import './Banner.css';

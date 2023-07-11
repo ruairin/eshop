@@ -37,25 +37,5 @@ export async function getProducts() {
   }
 }
 
-export async function signOut() {
-  const response = await fetch('http://localhost:3000/signout', {
-    method: "GET",
-    credentials: "include",
-  });
-}
 
 
-
-// export function getProducts() {
-
-//   const products =
-//     fetch('http://localhost:3000/products')
-//       .then(response => {
-//         if (response.ok) {
-//           return response.json();
-//         }
-//         throw response.status;
-//       })
-//       .catch(err => console.log("Error in fetch getProducts(): ", err));
-//   return products;
-// }

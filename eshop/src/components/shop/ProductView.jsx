@@ -1,36 +1,24 @@
 import React, { useState } from 'react';
 import { Link, useParams, useRouteLoaderData, Form, redirect } from "react-router-dom";
+import { addCartItem } from '../../api/cart';
+
 import './ProductView.css';
 
+
 export async function action({ request }) {
+
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  console.log(data);
+  const result = await addCartItem(data.id, data.qty);
 
-  try {
-    const response = await fetch('http://localhost:3000/addCartItem', {
-      method: 'post',
-      credentials: "include",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        product_id: data.id,
-        qty: data.qty
-      })
-    });
-
-    if (response.ok) {
-      const addedItem = await response.json();
-      if (addedItem) {
-        console.log(addedItem);
-        return addedItem;
-      }
-    } else if (response.status === 401) {
+  if (result instanceof Error) {
+    if (result.message === '401') {
+      alert('Please sign in to continue');
       return redirect('/signIn/');
-    } else {
-      throw new Error(response.status);
     }
-  } catch (error) {
-    console.log("Error deleting cart items: ", error);
+    alert('Error adding cart item');
+  } else {
+    return result;
   }
   return null;
 }
