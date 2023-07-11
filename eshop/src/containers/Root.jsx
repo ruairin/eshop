@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-import Banner from '../components/Banner';
-import Footer from '../components/Footer';
+import Banner from '../components/banner/Banner';
+import Footer from '../components/footer/Footer';
 
-import { getCategories, getUsers, getLogin, getProducts } from "../api";
+import { getCategories, getUsers, getLogin, getProducts } from "../api/api";
 
 export async function loader() {
   const products = await getProducts();

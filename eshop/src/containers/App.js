@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import Root, { loader as rootLoader } from '../components/Root';
+import Root, { loader as rootLoader } from './Root';
 
-import Cart, { loader as cartLoader, action as cartAction } from '../components/Cart';
-import SignIn from '../components/SignIn';
-import Register from '../components/Register';
+import Cart, { loader as cartLoader, action as cartAction } from '../components/cart/Cart';
+import SignIn from '../components/signin/SignIn';
+import Register from '../components/register/Register';
 import Home from '../components/Home';
 import About from '../components/About';
 import Contact from '../components/Contact';
