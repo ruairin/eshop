@@ -70,7 +70,6 @@ const getItems = (req, res, db) => {
   }
 
   const user_id = req.session.userId;
-  console.log(user_id);
 
   db.select('*')
     .from('cart_items')

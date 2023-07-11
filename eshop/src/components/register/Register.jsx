@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 
 // TODO: login, users to be removed when DB implemented
-const Register = ({ onRegister, login, users }) => {
+const Register = () => {
 
   const navigate = useNavigate();
 
@@ -26,17 +26,12 @@ const Register = ({ onRegister, login, users }) => {
         })
       });
 
-      if (response.ok) {
-        const userEntry = await response.json();
-        if (userEntry) {
-          onRegister();
-        }
-      } else {
+      if (!response.ok) {
         throw new Error(response.status);
       }
     } catch (error) {
-      console.log("Error in sign in: ", error);
-      window.alert('Error signing in')
+      console.log("Error in register: ", error);
+      window.alert('Error registering')
     }
     navigate('/');
   }

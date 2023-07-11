@@ -9,21 +9,30 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import { signOut as serverSignOut } from "../../api/api";
+import { userStore } from "../../store/store";
+
 import './Banner.css';
 
-const Banner = ({ onSignOut, isSignedIn, user, cart }) => {
+const Banner = () => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const navigate = useNavigate();
   const { categories } = useRouteLoaderData('root');
+
+  const user = userStore((state) => state.user);
+  const isSignedIn = userStore(state => state.signed_in);
+  const signOut = userStore(state => state.signOut);
 
   return (
 
@@ -80,7 +89,7 @@ const Banner = ({ onSignOut, isSignedIn, user, cart }) => {
                     ?
                     <>
                       <div className='text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300'
-                        onClick={() => { onSignOut(); navigate('/') }}
+                        onClick={() => { serverSignOut(); signOut(); navigate('/') }}
                       >
                         <Tooltip title={`Signed in as ${user.first_name}. Click to Sign Out`}>
                           <Badge badgeContent={"\u2713"} color="success">
@@ -103,7 +112,7 @@ const Banner = ({ onSignOut, isSignedIn, user, cart }) => {
                 <MenuItem onClick={handleClose}>
                   <Link to={'cart/'}>
                     <Tooltip title="Go to Cart">
-                      <Badge badgeContent={cart.length} color="success">
+                      <Badge color="success">
                         <div className='text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300'>
                           <ShoppingCartIcon fontSize="" />
                         </div>
@@ -139,7 +148,7 @@ const Banner = ({ onSignOut, isSignedIn, user, cart }) => {
                   ?
                   <>
                     <div className='text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300'
-                      onClick={() => { onSignOut(); navigate('/') }}
+                      onClick={() => { serverSignOut(); signOut(); navigate('/') }}
                     >
                       <Tooltip title={`Signed in as ${user.first_name}. Click to Sign Out`}>
                         <Badge badgeContent={"\u2713"} color="success">
@@ -160,7 +169,7 @@ const Banner = ({ onSignOut, isSignedIn, user, cart }) => {
                 }
                 <Link to={'cart/'}>
                   <Tooltip title="Go to Cart">
-                    <Badge badgeContent={cart.length} color="success">
+                    <Badge color="success">
                       <div className='text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300'>
                         <ShoppingCartIcon fontSize="large" />
                       </div>

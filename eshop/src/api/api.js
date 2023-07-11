@@ -8,7 +8,7 @@
 export async function getCategories() {
   try {
     const response = await fetch('http://localhost:3000/categories');
-    if (response.ok){
+    if (response.ok) {
       const categories = await response.json();
       return categories;
     }
@@ -27,7 +27,7 @@ export async function getCategories() {
 export async function getProducts() {
   try {
     const response = await fetch('http://localhost:3000/products');
-    if (response.ok){
+    if (response.ok) {
       const products = await response.json();
       return products;
     }
@@ -36,6 +36,14 @@ export async function getProducts() {
     console.log("Error in fetch getProducts(): ", error);
   }
 }
+
+export async function signOut() {
+  const response = await fetch('http://localhost:3000/signout', {
+    method: "GET",
+    credentials: "include",
+  });
+}
+
 
 
 // export function getProducts() {

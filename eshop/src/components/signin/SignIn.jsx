@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
+import { userStore } from "../../store/store";
 
 // Note: The following action function was intended to work with the form data
 // that is recieved when the <Form> is submitted below. however there seems to be 
@@ -40,11 +41,10 @@ import { Link, useNavigate } from "react-router-dom";
 //   return null;
 // }
 
-const SignIn = ({ onSignIn }) => {
+const SignIn = () => {
 
   const navigate = useNavigate();
-
-  // const { users, login } = useRouteLoaderData('root');
+  const signIn = userStore(state => state.signIn);
 
   // States for getting values from input fields
   const [email, setEmail] = useState('');
@@ -66,7 +66,7 @@ const SignIn = ({ onSignIn }) => {
       if (response.ok) {
         const userEntry = await response.json();
         if (userEntry) {
-          onSignIn(userEntry);
+          signIn(userEntry);
         }
       } else {
         throw new Error(response.status);
