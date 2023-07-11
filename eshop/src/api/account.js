@@ -1,7 +1,7 @@
 export async function signIn(email, password) {
 
   try {
-    const response = await fetch('http://localhost:3000/signin', {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/signin', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -23,7 +23,7 @@ export async function signIn(email, password) {
 
 
 export async function signOut() {
-  await fetch('http://localhost:3000/signout', {
+  await fetch(process.env.REACT_APP_API_URL + '/signout', {
     method: "GET",
     credentials: "include",
   });
@@ -32,7 +32,7 @@ export async function signOut() {
 export async function register(email, password, firstName, lastName) {
 
   try {
-    const response = await fetch('http://localhost:3000/register', {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/register', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

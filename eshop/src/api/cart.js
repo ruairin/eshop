@@ -2,7 +2,7 @@
 export async function addCartItem(id, qty) {
 
   try {
-    const response = await fetch('http://localhost:3000/addCartItem', {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/addCartItem', {
       method: 'post',
       credentials: "include",
       headers: { 'Content-Type': 'application/json' },
@@ -28,7 +28,7 @@ export async function addCartItem(id, qty) {
 export async function getCartItems() {
 
   try {
-    const response = await fetch('http://localhost:3000/getCartItems', {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/getCartItems', {
       method: "GET",
       credentials: "include",
     });
@@ -49,7 +49,7 @@ export async function getCartItems() {
 export async function deleteCartItem(id) {
 
   try {
-    const response = await fetch('http://localhost:3000/deleteCartItem', {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/deleteCartItem', {
       method: 'delete',
       credentials: "include",
       headers: { 'Content-Type': 'application/json' },

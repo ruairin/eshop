@@ -8,29 +8,30 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 
-const config = require('./config.json');
 const products = require('./controllers/products');
 const signin = require('./controllers/signin');
 const signout = require('./controllers/signout');
 const register = require('./controllers/register');
 const cart = require('./controllers/cart');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const db = knex({
-  client: config.db_connection.client,
+  client: process.env.DB_CLIENT,
   connection: {
-    host: config.db_connection.host,
-    user: config.db_connection.user,
-    password: config.db_connection.password,
-    database: config.db_connection.database
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
   }
 });
 
-
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({ 
+app.use(cors({
   credentials: true,
-  origin: 'http://localhost:3001'
+  origin: process.env.CORS_ORIGIN
 }));
 // app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,7 +43,7 @@ const oneDay = 1000 * 60 * 60 * 24;
 const secret = crypto.randomBytes(20).toString('hex');
 app.use(
   session({
-    secret: 'keyboard cat', 
+    secret: 'keyboard cat',
     // secret: secret,
     store: store,
     saveUninitialized: false,
@@ -61,6 +62,6 @@ app.post('/addCartItem', (req, res) => { cart.addItem(req, res, db) });
 app.delete('/deleteCartItem', (req, res) => { cart.deleteItem(req, res, db) });
 
 
-app.listen(3000, () => {
-  console.log('App running on port 3000');
+app.listen(process.env.PORT, () => {
+  console.log(`App running on port ${process.env.PORT}`);
 }); 
