@@ -43,8 +43,8 @@ const oneDay = 1000 * 60 * 60 * 24;
 const secret = crypto.randomBytes(20).toString('hex');
 app.use(
   session({
-    secret: 'keyboard cat',
-    // secret: secret,
+    // secret: 'keyboard cat',
+    secret: secret,
     store: store,
     saveUninitialized: false,
     cookie: { maxAge: oneDay },

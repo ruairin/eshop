@@ -63,8 +63,6 @@ const deleteItem = (req, res, db) => {
 
 const getItems = (req, res, db) => {
 
-  console.log("Session: ", req.session);
-  console.log("User ID: ", req.session.userId);
   if (!req.session.userId) {
     return res.status(401).json('Cannot get cart items - Not signed in');
   }
