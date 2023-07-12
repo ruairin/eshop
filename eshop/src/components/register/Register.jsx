@@ -1,9 +1,19 @@
+/** 
+ * Methods/components for registration of new user
+ * 
+ * @module Register
+ * 
+ */
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { register } from '../../api/account';
 
+/**
+ * Generates Register component
+ * 
+ */
 
-// TODO: login, users to be removed when DB implemented
 const Register = () => {
 
   const navigate = useNavigate();
@@ -13,6 +23,11 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  /**
+   * Handler for submission of registration form
+   * 
+   */
 
   const handleSubmitRegister = async () => {
 

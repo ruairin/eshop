@@ -1,3 +1,26 @@
+/** 
+ * Methods performing API calls related to cart
+ * 
+ * @module api/cart 
+ * 
+ */
+
+/**
+ * Submits request to add item to cart
+ * 
+ * @param {string} id  The id of the product (from products DB table) to add
+ * @param {string} qty The number of items to add
+ * 
+ * @typedef {Object} cartItem 
+ * @property {string} id          The cart item id
+ * @property {string} product_id  The product id of the cart item
+ * @property {string} user_id     The user id of the cart item
+ * @property {string} qty         The number of items
+ * 
+ * @returns {cartItem}  Object describing the item that was added to the cart
+ * @throws {Error}  If an error occurred during request. 
+ *                  Error.message contains the http response code
+ */
 
 export async function addCartItem(id, qty) {
 
@@ -24,6 +47,19 @@ export async function addCartItem(id, qty) {
   }
 }
 
+/**
+ * Get the cart items for the currently logged in user
+ * 
+ * @typedef {Object} cartItem 
+ * @property {string} id          The cart item id
+ * @property {string} product_id  The product id of the cart item
+ * @property {string} user_id     The user id of the cart item
+ * @property {string} qty         The number of items
+ * 
+ * @returns {cartItem[]}  Array of cart items for this user
+ * @throws {Error}  If an error occurred during request. 
+ *                  Error.message contains the http response code
+ */
 
 export async function getCartItems() {
 
@@ -45,6 +81,21 @@ export async function getCartItems() {
   }
 }
 
+/**
+ * Get the cart items for the currently logged in user
+ * 
+ * @param {string} id The id of the cart item to be deleted
+ * 
+ * @typedef {Object} cartItem 
+ * @property {string} id          The cart item id
+ * @property {string} product_id  The product id of the cart item
+ * @property {string} user_id     The user id of the cart item
+ * @property {string} qty         The number of items
+ * 
+ * @returns {cartItem}  The cart item that was deleted
+ * @throws {Error}  If an error occurred during request. 
+ *                  Error.message contains the http response code
+ */
 
 export async function deleteCartItem(id) {
 

@@ -1,3 +1,10 @@
+/** 
+ * Methods for generating the Home page
+ * 
+ * @module Home
+ * 
+ */
+
 import React from "react";
 import HomeIcon from '@mui/icons-material/Home';
 

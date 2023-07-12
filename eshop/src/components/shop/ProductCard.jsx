@@ -1,6 +1,28 @@
+/** 
+ * Methods for ProductCard component
+ * 
+ * @module ProductCard
+ * 
+ */
+
 import React from "react";
 import { Link } from "react-router-dom";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+/**
+ * Generates a ProductCard
+ * 
+ * @typedef {Object} product 
+ * @property {string} id            Product id
+ * @property {string} title         Product title
+ * @property {string} price         Product price
+ * @property {string} description   Long description of the product
+ * @property {string} product_code  Product code
+ * @property {string} image_name    Image filename for the product
+ * 
+ * @param {product} product The product data
+ * 
+ */
 
 const ProductCard = ({ product }) => {
   const { id, title, price, image_name } = product;

@@ -1,7 +1,19 @@
+/** 
+ * Methods for the Cart component
+ * 
+ * @module Cart
+ * 
+ */
+
 import React from "react";
 import { useRouteLoaderData, useLoaderData, redirect, Form } from "react-router-dom";
 import { getCartItems, deleteCartItem } from '../../api/cart'
 import './Cart.css';
+
+/**
+ * react-router loader function for cart component
+ * 
+ */
 
 export async function loader() {
 
@@ -18,6 +30,11 @@ export async function loader() {
     return result;
   }
 }
+
+/**
+ * react-router action function for cart component
+ * 
+ */
 
 export async function action({ request }) {
 
@@ -36,6 +53,11 @@ export async function action({ request }) {
     return result;
   }
 }
+
+/**
+ * Generates cart component
+ * 
+ */
 
 const Cart = () => {
 

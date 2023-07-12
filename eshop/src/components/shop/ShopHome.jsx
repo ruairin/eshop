@@ -1,8 +1,21 @@
+/** 
+ * Methods for ShopHome component
+ * 
+ * @module ShopHome
+ * 
+ */
+
 import React from "react";
 import CategoryCard from './CategoryCard';
 import { useRouteLoaderData } from "react-router-dom";
 
 import './Shop.css';
+
+/**
+ * Generates the ShopHome component
+ * (i.e. Default component for Shop component, before a category is selected)
+ * 
+ */
 
 const ShopHome = () => {
   const { categories } = useRouteLoaderData('root');

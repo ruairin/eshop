@@ -1,3 +1,11 @@
+
+/** 
+ * Methods for the Cart component
+ * 
+ * @module Banner
+ * 
+ */
+
 import React from "react";
 import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
 
@@ -13,6 +21,11 @@ import { signOut as serverSignOut } from "../../api/account";
 import { userStore } from "../../store/store";
 
 import './Banner.css';
+
+/**
+ * Generates banner component
+ * 
+ */
 
 const Banner = () => {
 
@@ -30,7 +43,7 @@ const Banner = () => {
   const navigate = useNavigate();
   const { categories } = useRouteLoaderData('root');
 
-  const user = userStore((state) => state.user);
+  const user /** @type{string} */ = userStore((state) => state.user);
   const isSignedIn = userStore(state => state.signed_in);
   const signOut = userStore(state => state.signOut);
 

@@ -1,4 +1,16 @@
+/** 
+ * Methods for the Cart component
+ * 
+ * @module Footer
+ * 
+ */
+
 import React from "react";
+
+/**
+ * Generates Footer component
+ * 
+ */
 
 const Footer = () => {
 

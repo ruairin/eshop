@@ -1,6 +1,27 @@
+/** 
+ * Methods for CategoryCard component
+ * 
+ * @module CategoryCard
+ * 
+ */
+
 import React from "react";
 import { Link } from 'react-router-dom';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+
+/**
+ * Generates a CategoryCard
+ * 
+ * @typedef {Object} category 
+ * @property {string} id            Category id
+ * @property {string} title         Category title
+ * @property {string} description   Long description of the Category
+ * @property {string} image_name    Image filename for the Category
+ * 
+ * @param {category} category The category data
+ * 
+ */
 
 const CategoryCard = ({ category }) => {
   const { id, title, image_name, description } = category;

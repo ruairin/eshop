@@ -1,3 +1,10 @@
+/** 
+ * Methods for generating the About page
+ * 
+ * @module About
+ * 
+ */
+
 import React from "react";
 import ImageIcon from '@mui/icons-material/Image';
 

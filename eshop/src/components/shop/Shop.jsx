@@ -1,7 +1,21 @@
+/** 
+ * Methods for Shop component
+ * 
+ * @module Shop
+ * 
+ */
+
 import React from "react";
 import { Link, Outlet, useParams, useRouteLoaderData } from "react-router-dom";
 
 import './Shop.css';
+
+/**
+ * Generates the Shop component
+ * The default component is ShopHome before a category is selected
+ * Otherwise a ProductView or ProductGrid (for a given category) is displayed
+ * 
+ */
 
 const Shop = () => {
 

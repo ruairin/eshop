@@ -1,3 +1,10 @@
+/** 
+ * Methods/components signing in
+ * 
+ * @module SignIn
+ * 
+ */
+
 import React, { useState } from 'react';
 import { Link, useNavigate, redirect } from "react-router-dom";
 
@@ -43,6 +50,11 @@ import { signIn } from '../../api/account';
 //   return null;
 // }
 
+/**
+ * Generates SignIn component
+ * 
+ */
+
 const SignIn = () => {
 
   const navigate = useNavigate();
@@ -51,6 +63,11 @@ const SignIn = () => {
   // States for getting values from input fields
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  /**
+   * Handler for submission of signIn form
+   * 
+   */
 
   const handleSubmitSignIn = async () => {
 

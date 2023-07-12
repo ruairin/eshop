@@ -1,3 +1,10 @@
+/** 
+ * Methods for generating the Contact page
+ * 
+ * @module Contact
+ * 
+ */
+
 import React from "react";
 import ContactsIcon from '@mui/icons-material/Contacts';
 

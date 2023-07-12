@@ -1,9 +1,21 @@
+/** 
+ * Methods for ProductView component
+ * 
+ * @module ProductView
+ * 
+ */
+
 import React, { useState } from 'react';
 import { Link, useParams, useRouteLoaderData, Form, redirect } from "react-router-dom";
 import { addCartItem } from '../../api/cart';
 
 import './ProductView.css';
 
+/**
+ * react-router action function for product view component
+ * (adds item to cart)
+ * 
+ */
 
 export async function action({ request }) {
 
@@ -23,6 +35,11 @@ export async function action({ request }) {
   return null;
 }
 
+/**
+ * Generates a ProductView component
+ * (i.e. Product details page)
+ * 
+ */
 
 const ProductView = () => {
   const params = useParams();

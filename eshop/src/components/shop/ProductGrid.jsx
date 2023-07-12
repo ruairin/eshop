@@ -1,3 +1,10 @@
+/** 
+ * Methods for ProductCard component
+ * 
+ * @module ProductGrid
+ * 
+ */
+
 import React, { useMemo, useState } from "react";
 import ProductCard from './ProductCard';
 import Pagination from './Pagination';
@@ -5,6 +12,11 @@ import { useParams, useRouteLoaderData } from "react-router-dom";
 
 import './ProductGrid.css';
 
+/**
+ * Generates a grid of products based on the range of indices set by 
+ * the pagination component
+ *  
+ */
 
 const ProductGrid = () => {
   const params = useParams();
@@ -18,6 +30,11 @@ const ProductGrid = () => {
   // number of items to display on page
   const [pageSize, setPageSize] = useState(10);
 
+  /**
+   * Update the state when a new page size is selected
+   * 
+   * @param {*} e Event triggered by setting a new page size
+   */
   const handlePageSizeChange = (e) => {
     // Note: e.target.value is a string. 
     // Convert to number before setting as pageSize
@@ -31,12 +48,14 @@ const ProductGrid = () => {
   const currentGridIdxEnd = Math.min(currentGridIdxStart + pageSize, products.length);
 
   const productsInCategory = useMemo(() => {
-    // TODO: Replace with database query
     return products.filter((product) => { return product.category_id === categoryId });
   }, [products, categoryId]);
 
-  // return an array of items to display on this page
-  // based on the pagination 
+  /**
+   * Return an array of items to display on this page
+   * based on the pagination 
+   *  
+   */ 
   const currentGridItems = useMemo(() => {
 
     const idxStart = currentGridIdxStart;

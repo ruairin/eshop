@@ -1,3 +1,10 @@
+/** 
+ * The main page for App setup
+ * 
+ * @module App
+ * 
+ */
+
 
 import {
   createBrowserRouter,

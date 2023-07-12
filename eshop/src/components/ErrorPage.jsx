@@ -1,3 +1,10 @@
+/** 
+ * Methods for generating the Error page
+ * 
+ * @module ErrorPage
+ * 
+ */
+
 import { useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
