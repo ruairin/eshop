@@ -46,7 +46,8 @@ const ProductView = () => {
   const productId = params.productId ? Number(params.productId) : null;
 
   const { products } = useRouteLoaderData('root');
-  const product = products[productId-1];
+  const product = products.find(obj => obj.id === productId);
+
   const { id, title, price, description, image_name, inventory } = product;
 
   // State for reading <input> for number to add to cart
