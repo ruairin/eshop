@@ -1,22 +1,31 @@
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const crypto = require('crypto');
-const knex = require('knex');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const knex = require('knex');
 const KnexSessionStore = require('connect-session-knex')(session);
 
+// Import controllers
 const products = require('./controllers/products');
 const signin = require('./controllers/signin');
 const signout = require('./controllers/signout');
 const register = require('./controllers/register');
 const cart = require('./controllers/cart');
 
+// Import swagger for doc generation
+const swagger = require('./swagger');
+const swaggerUi = require('swagger-ui-express');
+
+// Use dotenv to get environment vars from .env
 const dotenv = require('dotenv');
 dotenv.config();
 
+// Initialise knex
 const db = knex({
   client: process.env.DB_CLIENT,
   connection: {
@@ -27,6 +36,7 @@ const db = knex({
   }
 });
 
+// Initialise express app and options
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
@@ -36,6 +46,7 @@ app.use(cors({
 // app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swagger.swaggerSpec));
 
 // create session store in knex DB
 const store = new KnexSessionStore({ knex: db });
@@ -43,7 +54,6 @@ const oneDay = 1000 * 60 * 60 * 24;
 const secret = crypto.randomBytes(20).toString('hex');
 app.use(
   session({
-    // secret: 'keyboard cat',
     secret: secret,
     store: store,
     saveUninitialized: false,
@@ -52,6 +62,7 @@ app.use(
   }));
 
 
+// Configure Routes
 app.get('/products', (req, res) => { products.handleGetProducts(req, res, db) });
 app.get('/categories', (req, res) => { products.handleGetCategories(req, res, db) });
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) });
