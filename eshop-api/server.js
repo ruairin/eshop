@@ -39,16 +39,22 @@ const db = knex({
 // Initialise express app and options
 const app = express();
 app.use(bodyParser.json());
+
 app.use(cors({
   credentials: true,
   origin: process.env.CORS_ORIGIN
 }));
 // app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swagger.swaggerSpec));
 
+// serve images as e.g. SERVER_URL/3151549_zelda_game.svg
+app.use('/', express.static('public/images'));
+
 // create session store in knex DB
+// this automatically creates a table 'session' in the DB
 const store = new KnexSessionStore({ knex: db });
 const oneDay = 1000 * 60 * 60 * 24;
 const secret = crypto.randomBytes(20).toString('hex');

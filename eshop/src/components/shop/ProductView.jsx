@@ -46,7 +46,7 @@ const ProductView = () => {
   const productId = params.productId ? Number(params.productId) : null;
 
   const { products } = useRouteLoaderData('root');
-  const product = products[productId];
+  const product = products[productId-1];
   const { id, title, price, description, image_name, inventory } = product;
 
   // State for reading <input> for number to add to cart
@@ -64,7 +64,7 @@ const ProductView = () => {
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
 
             <div>
-              <img alt='product' src={`/images/${image_name}`} width={250} />
+              <img alt='product' src={process.env.REACT_APP_API_URL + `/${image_name}`} width={250} />
             </div>
 
             <div className='px-8'>

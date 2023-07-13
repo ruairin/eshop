@@ -102,7 +102,7 @@ const Cart = () => {
                       <>
                         <tr>
                           <td className='border-b b--black-20 py-3 text-left'>{title}</td>
-                          <td className='border-b b--black-20 py-3 text-left hidden sm:block'><img alt='productImage' src={`/images/${image_name}`} width={50} /></td>
+                          <td className='border-b b--black-20 py-3 text-left hidden sm:block'><img alt='productImage' src={process.env.REACT_APP_API_URL + `/${image_name}`} width={50} /></td>
                           <td className='border-b b--black-20 py-3 text-left'>{item.qty}</td>
                           <td className='border-b b--black-20 py-3 text-left'>{price}</td>
                           <td className='border-b b--black-20 py-3 text-left link cursor-pointer underline'

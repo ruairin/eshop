@@ -28,8 +28,7 @@ const CategoryCard = ({ category }) => {
   return (
     <Link to={`/shop/category/${id}`}>
       <div className='group px-6 py-3 max-w-sm rounded overflow-hidden shadow-md'>
-        {/* Note: /images/ below refers to the images folder within /public/ */}
-        <img alt='category' src={`/images/${image_name}`} width={200} />
+        <img alt='category' src={process.env.REACT_APP_API_URL + `/${image_name}`} width={200} />
         <div className="px-6 py-4">
           <div className='font-bold text-xl mb-2'>
             {title}
