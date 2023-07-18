@@ -25,16 +25,18 @@ const swaggerUi = require('swagger-ui-express');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const db = require('./db/knex');
+
 // Initialise knex
-const db = knex({
-  client: process.env.DB_CLIENT,
-  connection: {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-  }
-});
+// const db = knex({
+//   client: process.env.DB_CLIENT,
+//   connection: {
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME
+//   }
+// });
 
 // Initialise express app and options
 const app = express();
