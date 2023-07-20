@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+
+  postgres:
+    image: postgres:15
+    profiles: ["useDockerDB"]
+    restart: always
+    env_file:
+      - .env.development
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - '15432:5432'
+    volumes:
+      - ./db/data/:/var/lib/postgresql/data
+
+  eshop_api:
+    build:
+      # Get image details from Dockerfile in ./
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    command: [ "npm", "run", "start-dev" ]
+    env_file:
+      - .env.development
+    depends_on:
+      - postgres
+    ports:
+      - '3000:3000'
+    volumes:
+      - './:/app'
+      - '/app/node_modules'
+
+  adminer:
+    container_name: adminer
+    profiles: ["useDockerDB"]
+    depends_on:
+      - postgres
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

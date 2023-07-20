@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+
+  eshop_api:
+    build:
+      # Get image details from Dockerfile in ./
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    command: [ "npm", "run", "start-dev" ]
+    env_file:
+      - .env.development
+    ports:
+      - '3000:3000'
+    volumes:
+      - './:/app'
+      - '/app/node_modules'
+    networks:
+      - eshop-net
+
+networks:
+  eshop-net:
+    external: true

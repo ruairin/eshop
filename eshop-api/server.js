@@ -7,7 +7,6 @@ const cors = require('cors');
 const crypto = require('crypto');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const knex = require('knex');
 const KnexSessionStore = require('connect-session-knex')(session);
 
 // Import controllers
@@ -23,20 +22,10 @@ const swaggerUi = require('swagger-ui-express');
 
 // Use dotenv to get environment vars from .env
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({path: `.env.${process.env.NODE_ENV}`});
 
+// get db connection using knex
 const db = require('./db/knex');
-
-// Initialise knex
-// const db = knex({
-//   client: process.env.DB_CLIENT,
-//   connection: {
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME
-//   }
-// });
 
 // Initialise express app and options
 const app = express();
@@ -71,6 +60,7 @@ app.use(
 
 
 // Configure Routes
+app.get('/', (req, res) => { return res.json('Welcome555') });
 app.get('/products', (req, res) => { products.handleGetProducts(req, res, db) });
 app.get('/categories', (req, res) => { products.handleGetCategories(req, res, db) });
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) });

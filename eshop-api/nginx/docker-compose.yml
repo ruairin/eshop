@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: .
+    ports:
+      - "1080:80" # 80 in nginx redirects to the eshop_api:3000
+      - "1081:81" # 81 in nginx redirects to the adminer:8080
+    networks:
+      - eshop-net
+
+networks:
+  eshop-net:

@@ -1,0 +1,26 @@
+
+server {
+    listen 80;
+
+    location / {
+      # Using resolver and variable to prevent
+      # nginx from crashing if http://eshop_api isnt found
+      # Note: 127.0.0.11 is dockers internal DNS
+      resolver 127.0.0.11 valid=30s;
+      set $upstream_eshop_api eshop_api;
+      proxy_pass http://$upstream_eshop_api:3000;
+    }
+}
+
+# server {
+#   listen 81;
+
+#   location / {
+#     proxy_set_header X-Real-IP  $remote_addr;
+#     proxy_set_header X-Forwarded-For $remote_addr;
+#     proxy_set_header Host $host;
+
+#     proxy_pass http://adminer:8080;
+#     proxy_redirect off;
+#   }
+# }
