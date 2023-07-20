@@ -3,10 +3,9 @@ services:
 
   postgres:
     image: postgres:15
-    profiles: ["useDockerDB"]
     restart: always
     env_file:
-      - .env.development
+      - .env.development.withDB
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -22,9 +21,9 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     restart: always
-    command: [ "npm", "run", "start-dev" ]
+    command: [ "npm", "run", "start-dev-withDB" ]
     env_file:
-      - .env.development
+      - .env.development.withDB
     depends_on:
       - postgres
     ports:
@@ -35,7 +34,6 @@ services:
 
   adminer:
     container_name: adminer
-    profiles: ["useDockerDB"]
     depends_on:
       - postgres
     image: adminer

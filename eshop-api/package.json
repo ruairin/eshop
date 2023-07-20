@@ -30,6 +30,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
     "start-dev": "cross-env NODE_ENV=development nodemon -L",
+    "start-dev-withDB": "cross-env NODE_ENV=development.withDB nodemon -L",
     "swagger-autogen": "node swagger.js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
