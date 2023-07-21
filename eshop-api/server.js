@@ -21,8 +21,7 @@ const swagger = require('./swagger');
 const swaggerUi = require('swagger-ui-express');
 
 // Use dotenv to get environment vars from .env
-const dotenv = require('dotenv');
-dotenv.config({path: `.env.${process.env.NODE_ENV}`});
+const dotenv = require('dotenv').config();
 
 // get db connection using knex
 const db = require('./db/knex');

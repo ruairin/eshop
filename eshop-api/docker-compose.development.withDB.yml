@@ -5,7 +5,7 @@ services:
     image: postgres:15
     restart: always
     env_file:
-      - .env.development.withDB
+      - .env
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -23,7 +23,7 @@ services:
     restart: always
     command: [ "npm", "run", "start-dev-withDB" ]
     env_file:
-      - .env.development.withDB
+      - .env
     depends_on:
       - postgres
     ports:

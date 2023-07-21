@@ -1,8 +1,5 @@
-// Update with your config settings.
 
-// Use dotenv to get environment vars from .env
-const dotenv = require('dotenv');
-dotenv.config({path: `.env.${process.env.NODE_ENV}`});
+const dotenv = require('dotenv').config();
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
@@ -24,7 +21,7 @@ module.exports = {
     migrations: {
       directory: './db/migrations'
     },
-    seeds:{
+    seeds: {
       directory: './db/seeds',
     }
   }
