@@ -14,24 +14,29 @@ services:
       - '15432:5432'
     volumes:
       - ./db/data/:/var/lib/postgresql/data
+    healthcheck:
+      test: sh -c "pg_isready"
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
-  eshop_api:
+  init-db:
     build:
       # Get image details from Dockerfile in ./
       context: .
       dockerfile: Dockerfile.dev
-    restart: always
-    command: [ "npm", "run", "start-dev-withDB" ]
+    command: sh -c "sleep 10 && npm run rollback && sleep 5 && npm run migrate && sleep 5 && npm run seed"
     env_file:
       - .env
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy 
     ports:
       - '3000:3000'
     volumes:
       - './:/app'
       - '/app/node_modules'
-
+    
   adminer:
     container_name: adminer
     depends_on:

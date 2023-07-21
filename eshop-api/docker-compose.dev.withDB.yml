@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+
+  postgres:
+    image: postgres:15
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - '15432:5432'
+    volumes:
+      - ./db/data/:/var/lib/postgresql/data
+    healthcheck:
+      test: sh -c "pg_isready"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  eshop_api:
+    build:
+      # Get image details from Dockerfile in ./
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    command: [ "npm", "run", "start-dev-withDB" ]
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - '3000:3000'
+    volumes:
+      - './:/app'
+      - '/app/node_modules'
+    
+
+  adminer:
+    container_name: adminer
+    depends_on:
+      - postgres
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
