@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/eshop/static/css/main.3b026cdb.css",
-    "main.js": "/eshop/static/js/main.85e724f7.js",
+    "main.js": "/eshop/static/js/main.d75c4459.js",
     "static/js/787.e0bb9a19.chunk.js": "/eshop/static/js/787.e0bb9a19.chunk.js",
     "static/media/manolomono.woff": "/eshop/static/media/manolomono.4091bcf0fea066a6745b.woff",
     "index.html": "/eshop/index.html",
     "main.3b026cdb.css.map": "/eshop/static/css/main.3b026cdb.css.map",
-    "main.85e724f7.js.map": "/eshop/static/js/main.85e724f7.js.map",
+    "main.d75c4459.js.map": "/eshop/static/js/main.d75c4459.js.map",
     "787.e0bb9a19.chunk.js.map": "/eshop/static/js/787.e0bb9a19.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3b026cdb.css",
-    "static/js/main.85e724f7.js"
+    "static/js/main.d75c4459.js"
   ]
 }
