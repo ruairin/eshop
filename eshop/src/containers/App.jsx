@@ -85,7 +85,8 @@ function App() {
         }
       ]
     }
-  ]);
+  ], 
+  { basename: "/eshop/" });
 
   return (
     <RouterProvider router={router} />
