@@ -15,9 +15,3 @@ services:
     volumes:
       - './:/app'
       - '/app/node_modules'
-    networks:
-      - eshop-net
-
-networks:
-  eshop-net:
-    external: true

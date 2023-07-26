@@ -19,6 +19,6 @@ services:
 
 networks:
   # connect to network created in a separate
-  # nginix container (see nginx/docker-compose.yml)
+  # nginix container
   nginx_eshop-net:
     external: true
