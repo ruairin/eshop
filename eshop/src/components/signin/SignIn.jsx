@@ -81,6 +81,7 @@ const SignIn = () => {
       alert('Error signing in: ', result.message);
     } else {
       userStoreSignIn(result);
+      alert('Sign in successful');
       navigate('/');
       return result;
     }

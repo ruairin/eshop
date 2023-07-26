@@ -30,6 +30,7 @@ export async function action({ request }) {
     }
     alert('Error adding cart item');
   } else {
+    alert('Item added to cart')
     return result;
   }
   return null;

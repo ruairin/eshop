@@ -36,6 +36,7 @@ const Register = () => {
     if (result instanceof Error) {
       window.alert('Error registering')
     }
+    alert('Registration successful. You can sign in now')
     navigate('/');
   }
 
