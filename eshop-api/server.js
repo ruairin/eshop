@@ -48,18 +48,26 @@ app.use('/', express.static('public/images'));
 const store = new KnexSessionStore({ knex: db });
 const oneDay = 1000 * 60 * 60 * 24;
 const secret = crypto.randomBytes(20).toString('hex');
+
+// Set trust proxy for production case with https behind a proxy
+app.set('trust proxy', 1)
+
 app.use(
   session({
     secret: secret,
     store: store,
     saveUninitialized: false,
-    cookie: { maxAge: oneDay },
+    cookie: {
+      secure: 'auto',
+      maxAge: oneDay,
+      sameSite: 'none'
+    },
     resave: false
   }));
 
 
 // Configure Routes
-app.get('/', (req, res) => { return res.json('Welcome555') });
+app.get('/', (req, res) => { return res.json('Welcome5') });
 app.get('/products', (req, res) => { products.handleGetProducts(req, res, db) });
 app.get('/categories', (req, res) => { products.handleGetCategories(req, res, db) });
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) });
