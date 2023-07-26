@@ -34,8 +34,14 @@ const Shop = () => {
             <Link title="Home" to={'/'}>
               <h4 className="py-2">Home</h4>
             </Link>
-            <Link title="About" to={'/about'}>
-              <h4 className="py-2">About</h4>
+            <Link title="Fontend" to={'/about/frontend'}>
+              <h4 className="py-2">Frontend</h4>
+            </Link>
+            <Link title="Fontend" to={'/about/backend'}>
+              <h4 className="py-2">Backend</h4>
+            </Link>
+            <Link title="Database" to={'/about/db'}>
+              <h4 className="py-2">Database</h4>
             </Link>
             <Link title="Shop" to={'/shop'}>
               <h4 className="py-2">Shop</h4>
@@ -51,9 +57,6 @@ const Shop = () => {
                 })
               }
             </ul>
-            <Link title="Contact" to={'/contact'}>
-              <h4 className="py-2">Contact</h4>
-            </Link>
           </div>
           <div className='col-span-3 product-pane'>
             <Outlet />

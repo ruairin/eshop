@@ -89,13 +89,16 @@ const Banner = () => {
                   <Link href="#" title="Home" to={'/'} >Home</Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <Link href="#" title="About" to={'/about/'} >About</Link>
+                  <Link href="#" title="Frontend" to={'/about/frontend'} >Frontend</Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link href="#" title="Backend" to={'/about/backend'} >Backend</Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link href="#" title="Database" to={'/about/db'} >Database</Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                   <Link href="#" title="Shop" to={'/shop/'} >Shop</Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <Link href="#" title="Contact" to={'/contact/'} >Contact</Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                   {isSignedIn
@@ -141,10 +144,12 @@ const Banner = () => {
               <ul className='flex items-center gap-4 cursor-pointer'>
 
                 <Link key="1" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Home" to={'/'} >Home</Link>
-                <Link key="2" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="About" to={'/about/'} >About</Link>
+                <Link key="2" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Frontend" to={'/about/frontend'} >Frontend</Link>
+                <Link key="3" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Backend" to={'/about/backend'} >Backend</Link>
+                <Link key="4" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Database" to={'/about/db'} >Database</Link>
 
                 <div className="dropdown">
-                  <Link key="3" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Shop" to={'/shop/'} >Shop</Link>
+                  <Link key="5" className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Shop" to={'/shop/'} >Shop</Link>
                   <div className='dropdown-content'>
                     {
                       categories.map((category) => {
@@ -156,7 +161,7 @@ const Banner = () => {
                     }
                   </div>
                 </div>
-                <Link className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Contact" to={'/contact/'} >Contact</Link>
+                {/* <Link className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300" href="#" title="Contact" to={'/contact/'} >Contact</Link> */}
                 {isSignedIn
                   ?
                   <>

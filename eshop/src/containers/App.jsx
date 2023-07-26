@@ -16,8 +16,9 @@ import Cart, { loader as cartLoader, action as cartAction } from '../components/
 import SignIn from '../components/signin/SignIn';
 import Register from '../components/register/Register';
 import Home from '../components/Home';
-import About from '../components/About';
-import Contact from '../components/Contact';
+import AboutFrontend from "../components/AboutFrontend";
+import AboutBackend from "../components/AboutBackend";
+import AboutDB from "../components/AboutDB";
 import ErrorPage from '../components/ErrorPage';
 import Shop from '../components/shop/Shop';
 import ShopHome from '../components/shop/ShopHome';
@@ -25,6 +26,7 @@ import ProductGrid from "../components/shop/ProductGrid";
 import ProductView, { action as productViewAction } from "../components/shop/ProductView";
 
 import './App.css';
+
 
 function App() {
 
@@ -43,12 +45,16 @@ function App() {
           children: [
             { index: true, element: <Home /> },
             {
-              path: 'about/',
-              element: <About />,
+              path: 'about/frontend',
+              element: <AboutFrontend />,
             },
             {
-              path: 'contact/',
-              element: <Contact />,
+              path: 'about/backend',
+              element: <AboutBackend />,
+            },
+            {
+              path: 'about/db',
+              element: <AboutDB />,
             },
             {
               path: 'shop/',
@@ -85,8 +91,8 @@ function App() {
         }
       ]
     }
-  ], 
-  { basename: "/eshop/" });
+  ],
+    { basename: "/eshop/" });
 
   return (
     <RouterProvider router={router} />

@@ -57,7 +57,7 @@ Database initialisation is described in the setup sections. Scripts are provided
 
 It should be noted that the seeding is only performed for the products and categories tables shown below. The users, cart_items and login tables are populated via the fontend interface. The sessions table is automatically created by the backend.
 
-![image](../eshop/public/DB_schema.svg)
+![image](../eshop/public/images/DB_schema.svg)
 
 # Docker compose files
 
