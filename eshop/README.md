@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# About
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This directory (/eshop/eshop/) contains the frontend app for the project. See the [top-level README](../README.md) in the root of the repository for an overview of the project. 
 
-## Available Scripts
+The front end app was created with the following technologies:
 
-In the project directory, you can run:
+- [React.js](https://react.dev/) - Javascript framework for user interfaces
+- [React router](https://reactrouter.com/) - Client-side page routing 
+- [Zustand](https://www.npmjs.com/package/zustand) - State management
+- [Tailwind](https://tailwindcss.com/) - CSS framework
+- [Create React App](https://create-react-app.dev/) - Build setup
+- [JSDoc](https://jsdoc.app/) - Generation of docs
 
-### `npm start`
+The following are also used
+- Icons
+  - [mui-core](https://mui.com/core/) - Icons and selected UI components
+  - [Geek Icon Pack](https://www.iconfinder.com/iconsets/geek-3) - Dummy product images
+- Fonts
+  - [Manolo Mono](https://www.cufonfonts.com/font/manolo-mono) - Page title font
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Setup
 
-### `npm test`
+The following steps are required to set up the app. 
+Note: it is assumed that you have [Node.js](https://nodejs.org/en) installed. Node.js version 18.16 was used for development. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Open a terminal and clone the repository (`$ git clone https://github.com/ruairin/eshop.git`)
 
-### `npm run build`
+2. Change into the eshop sub-directory (where this README is located) `($ cd eshop/eshop)`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Run `($ npm install)` to download the required packages
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. .env file: 
+    - Rename the provided .env.sample file to .env and set the environment variable REACT_APP_API_URL to the URL where the backend API is running. For example, if the API is running on the local machine on post 3000, set REACT_APP_API_URL=http://localhost:3000
+    - Refer to the separate [backend README](../eshop-api/README.md) for instructions on how to setup the backend API.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5. Run `($ npm start)`. Note: the backend API must be running for the app to work.
 
-### `npm run eject`
+6. Open a web browser to view the app at the URL shown on the terminal, e.g. http://localhost:3001/eshop/
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Source Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The source structure for the most important parts of the React app is summarised below
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+/eshop/eshop/
+| -- /public/
+| -- /src/
+|     - /api/
+|     - /components/
+|     - /containers/
+|     - /fonts/
+|     - /store/
+|     - index.jsx
+| -- .env.example
+| -- package.json
+| -- README.md
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Directory         | Description |
+| ---               | --- |
+| /public/          | contains the index.html file and static content |
+| /src/api/         | modules which fetch data from the backend API |
+| /src/components/  | the react components which make up the interface, e.g. banner, product cards, product pages, menus |
+| /src/containers/  | high-level components that call up other components, e.g. the Root component which describes the basic page layout. |
+| /src/store/       | The zustand store for app state management |
+| .env.example      | Sample environment file. This must be renamed to .env and configured as decribed in the setup section before using the app. |
+| package.json      | Package file for npm. |
+| README.md         | This readme file |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+# Additional Scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+In addition to the standard npm scripts provided by create-react-app, the following are available:
 
-### Analyzing the Bundle Size
+## npm run deploy
+Deploy the react app to Github pages. Refer to this [guide](https://create-react-app.dev/docs/deployment/#github-pages) for instructions on how to deploy to your own github pages site.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## npm run docs
+Uses JSDoc to generate documentation in html format based on the code comments.
