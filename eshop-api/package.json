@@ -29,7 +29,6 @@
     "start": "cross-env NODE_ENV=production node server.js",
     "start-dev": "nodemon -L",
     "start-dev-withDB": "nodemon -L",
-    "swagger-autogen": "node swagger.js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run"
