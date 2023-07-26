@@ -35,11 +35,11 @@ const Home = () => {
               <br></br>
               <p>
                 Further information about the application is available in the&nbsp;
-                <Link className="underline" href="#" title="Backend" to={'/about/backend'} >Frontend</Link>
+                <Link className="underline" href="#" title="Backend" to={'/about/frontend'} >Frontend</Link>
                 &nbsp;
                 <Link className="underline" href="#" title="Backend" to={'/about/backend'} >Backend</Link>
                 &nbsp;and&nbsp;
-                <Link className="underline" href="#" title="Backend" to={'/about/backend'} >Database</Link>
+                <Link className="underline" href="#" title="Backend" to={'/about/db'} >Database</Link>
                 &nbsp;sections
               </p>
               <br></br>
