@@ -35,7 +35,7 @@ exports.up = async (knex) => {
       table.increments('id').primary().unsigned();
       table.integer('product_id').notNullable().references('id').inTable('products');
       table.integer('user_id').notNullable().references('id').inTable('users');
-      table.integer('inventory').notNullable().unsigned();
+      table.integer('qty').notNullable().unsigned();
     })
   ]);
 };
