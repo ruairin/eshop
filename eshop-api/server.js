@@ -58,7 +58,7 @@ app.use(
     store: store,
     saveUninitialized: false,
     cookie: {
-      secure: 'auto',
+      secure: true,
       maxAge: oneDay,
       sameSite: 'none'
     },
