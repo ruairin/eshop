@@ -21,6 +21,20 @@ Further information about the code, setup and configuration are available in the
 - [Backend Readme](./eshop-api/README.md)
 
 
+# Pending features
+
+The application is a partial (incomplete) template for an e-commerce site.
+The following features are yet to be implemented:
+
+- User address book
+- Checkout
+- Payment
+- Stock inventory
+- Admin interface (e.g. for database updates)
+- Captcha (sign-in/register)
+- Email verification during registration
+
+
 
 
 
