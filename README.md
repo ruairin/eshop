@@ -8,7 +8,7 @@ The applcation features the following:
 - Shop component which dynamically loads products from a database
 - User registration
 - User sign in with persistance via sessions
-- Unique cart for each user (only available when signed in)
+- Unique cart for each user (available when signed in)
 - Responsive design - page and menu display adapts to screen size
 
 
