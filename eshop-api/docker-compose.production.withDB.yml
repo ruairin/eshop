@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+
+  postgres:
+    image: postgres:15
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      PGUSER: ${DB_USER}
+    ports:
+      - '15432:5432'
+    volumes:
+      - ./db/data/:/var/lib/postgresql/data
+    healthcheck:
+      test: sh -c "pg_isready"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - nginx-net
+
+  eshop_api:
+    build:
+      # Get image details from Dockerfile in ./
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: sh -c "sleep 10 && npm run rollback && sleep 5 && npm run migrate && sleep 5 && npm run seed && npm run start"
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - '3000:3000'
+    volumes:
+      - '/app/node_modules'
+    networks:
+      - nginx-net
+
+networks:
+  # connect to network created in a separate
+  # nginix container
+  nginx-net:
+    external: true
